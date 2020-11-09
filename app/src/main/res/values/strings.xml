@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">My Movies</string>
+    <string name="emailLogIn">Email</string>
+    <string name="passwordLogIn">Password</string>
+    <string name="btnLogIn">Log in</string>
+    <string name="forgot_passwordLogIn">Forgot password?</string>
+    <string name="orLogIn">Or</string>
+    <string name="welcomeLogIn">Welcome to My Movies</string>
+    <string name="first_nameSignUp">First name</string>
+    <string name="last_nameSignUp">Last name</string>
+    <string name="passwordSignUp">Password</string>
+    <string name="confirm_passwordSignUp">Confirm password</string>
+    <string name="emailSignUp">Email</string>
+    <string name="btnSignUp">Sign up</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
 </resources>
