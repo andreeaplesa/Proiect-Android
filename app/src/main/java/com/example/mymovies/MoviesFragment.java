@@ -24,10 +24,10 @@ public class MoviesFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_movies, container, false);
 
         movieList = new ArrayList<>();
-        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView = rootView.findViewById(R.id.moviesRecyclerView);
 
         ExtractMovies extractMovies = new ExtractMovies(getContext(), movieList, recyclerView);
         extractMovies.execute();

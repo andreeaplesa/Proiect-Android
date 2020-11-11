@@ -18,6 +18,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     private Context context;
     private List<Movie> movieList;
+    private final String imageString = "https://image.tmdb.org/t/p/w500";
 
     public MovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
@@ -29,6 +30,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater inflater = LayoutInflater.from(context);
+
         view = inflater.inflate(R.layout.movie_item, parent, false);
 
         return new MyViewHolder(view);
@@ -39,8 +41,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         holder.id.setText(movieList.get(position).getId());
         holder.name.setText(movieList.get(position).getName());
 
+        // Using Glide library to display the image
+        // https://image.tmdb.org/t/p/w500
         Glide.with(context)
-                .load(movieList.get(position).getImage())
+                .load(imageString + movieList.get(position).getImage())
                 .into(holder.img);
     }
 

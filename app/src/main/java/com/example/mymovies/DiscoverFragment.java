@@ -28,11 +28,23 @@ import java.util.List;
 
 public class DiscoverFragment extends Fragment {
 
+    private List<Movie> movieList;
+    private RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_discover, container, false);
+
+        View rootView =  inflater.inflate(R.layout.fragment_discover, container, false);
+
+        movieList = new ArrayList<>();
+        recyclerView = rootView.findViewById(R.id.discoverRecyclerView);
+
+        ExtractMovies extractMovies = new ExtractMovies(getContext(), movieList, recyclerView);
+        extractMovies.execute();
+
+        return rootView;
     }
 }

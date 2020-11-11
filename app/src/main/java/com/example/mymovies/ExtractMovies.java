@@ -20,7 +20,13 @@ import java.util.List;
 
 public class ExtractMovies extends AsyncTask<String, Void, String> {
 
-    private String JSON_URL = "https://run.mocky.io/v3/7108e07d-f6cd-4ecc-bca9-74d9a5fa0330";
+
+    // Custom movies
+    //private String JSON_URL = "https://run.mocky.io/v3/7108e07d-f6cd-4ecc-bca9-74d9a5fa0330";
+
+    private String top_rated_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=47a63a793ef28004cb08a49ec20932d0";
+
+
     private Context context;
     private List<Movie> movieList;
     private RecyclerView recyclerView;
@@ -39,7 +45,7 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
             HttpURLConnection urlConnection = null;
 
             try{
-                url = new URL(JSON_URL);
+                url = new URL(top_rated_movies);
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 InputStream is = urlConnection.getInputStream();
@@ -74,13 +80,13 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
         try{
             JSONObject jsonObject = new JSONObject(s);
 
-            JSONArray jsonArray = jsonObject.getJSONArray("movies");
+            JSONArray jsonArray = jsonObject.getJSONArray("results");
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonMovie = jsonArray.getJSONObject(i);
                 Movie movie = new Movie();
-                movie.setId(jsonMovie.getString("id"));
-                movie.setName(jsonMovie.getString("name"));
-                movie.setImage(jsonMovie.getString("image"));
+                movie.setId(jsonMovie.getString("vote_average"));
+                movie.setName(jsonMovie.getString("title"));
+                movie.setImage(jsonMovie.getString("poster_path"));
 
                 movieList.add(movie);
             }
