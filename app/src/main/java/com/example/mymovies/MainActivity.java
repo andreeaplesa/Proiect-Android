@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.stay, R.anim.stay);
         setContentView(R.layout.activity_main);
 
         bottomNavView = findViewById(R.id.bottomNavView);
@@ -42,7 +43,12 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ProfileFragment();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).commit();
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        //.setCustomAnimations(R.anim.slide_up, R.anim.slide_down, R.anim.slide_up, R.anim.slide_down)
+                        .replace(R.id.mainFrame, fragment)
+                        .commit();
 
                 return true;
             }

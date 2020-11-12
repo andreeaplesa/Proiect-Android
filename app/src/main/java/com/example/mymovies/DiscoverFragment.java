@@ -6,6 +6,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
@@ -42,7 +43,7 @@ public class DiscoverFragment extends Fragment {
         movieList = new ArrayList<>();
         recyclerView = rootView.findViewById(R.id.discoverRecyclerView);
 
-        ExtractMovies extractMovies = new ExtractMovies(getContext(), movieList, recyclerView);
+        ExtractMovies extractMovies = new ExtractMovies(getActivity(), movieList, recyclerView);
         extractMovies.execute();
 
         return rootView;

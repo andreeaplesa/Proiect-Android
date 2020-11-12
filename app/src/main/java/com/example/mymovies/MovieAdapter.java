@@ -20,6 +20,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     private List<Movie> movieList;
     private final String imageString = "https://image.tmdb.org/t/p/w500";
 
+    public MovieAdapter() {
+    }
+
     public MovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
@@ -29,7 +32,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         view = inflater.inflate(R.layout.movie_item, parent, false);
 
@@ -67,6 +70,4 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             img = itemView.findViewById(R.id.imageView);
         }
     }
-
-
 }

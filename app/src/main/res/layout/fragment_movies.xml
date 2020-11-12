@@ -8,21 +8,22 @@
     tools:context=".MoviesFragment">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/moviesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
+            android:layout_height="wrap_content" />
 
         <Button
+            android:id="@+id/btnDiscoverMore"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Discover Movies"
+            android:layout_gravity="center"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 
