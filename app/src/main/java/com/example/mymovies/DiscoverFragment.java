@@ -43,7 +43,7 @@ public class DiscoverFragment extends Fragment {
         movieList = new ArrayList<>();
         recyclerView = rootView.findViewById(R.id.discoverRecyclerView);
 
-        ExtractMovies extractMovies = new ExtractMovies(getActivity(), movieList, recyclerView);
+        ExtractDiscoverMovies extractMovies = new ExtractDiscoverMovies(getActivity(), movieList, recyclerView);
         extractMovies.execute();
 
         return rootView;

@@ -1,25 +1,28 @@
 package com.example.mymovies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DiscoverMoreActivity extends AppCompatActivity {
 
-    private View myView;
-    private boolean isUp;
+    private List<Movie> movieList;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
         setContentView(R.layout.activity_discover_more);
-    }
 
-    /*@Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-    }*/
+        movieList = new ArrayList<>();
+        recyclerView = findViewById(R.id.discoverMoreRecyclerView);
+
+        ExtractDiscoverMoreMovies extractMovies = new ExtractDiscoverMoreMovies(getApplicationContext(), movieList, recyclerView);
+        extractMovies.execute();
+    }
 }
