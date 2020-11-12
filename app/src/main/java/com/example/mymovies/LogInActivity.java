@@ -65,7 +65,7 @@ public class LogInActivity extends AppCompatActivity {
 
     private boolean validatePassword(){
         textInputLayoutPassword=findViewById(R.id.textInputLayoutPassword);
-        String password = textInputLayoutPassword.getEditText().getText().toString();
+        String password = textInputLayoutPassword.getEditText().getText().toString().trim();
         if (password.isEmpty()){
             textInputLayoutPassword.setError("Field can't be empty!");
             return false;}
