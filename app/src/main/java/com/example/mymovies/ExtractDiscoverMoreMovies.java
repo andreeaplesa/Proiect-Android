@@ -2,6 +2,7 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +20,6 @@ import java.net.URL;
 import java.util.List;
 
 public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
-
-
     // Custom movies
     //private String JSON_URL = "https://run.mocky.io/v3/7108e07d-f6cd-4ecc-bca9-74d9a5fa0330";
 
@@ -90,7 +89,6 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
 
                 movieList.add(movie);
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -104,4 +102,5 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
 
         recyclerView.setAdapter(adapter);
     }
+
 }

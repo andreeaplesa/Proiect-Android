@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.stay, R.anim.stay);
         setContentView(R.layout.activity_main);
 
         bottomNavView = findViewById(R.id.bottomNavView);
