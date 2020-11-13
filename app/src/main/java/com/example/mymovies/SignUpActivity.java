@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,10 +20,6 @@ import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final Pattern PASSWORD_PATTERN=Pattern.compile("^"+"(?=.*[0-9])"+"(?=.*[a-z])"+"(?=.*[A-Z])"+"(?=.*[@#$%^&+=])"+".{4,}"+"$");
-    public enum Origin
-    {
-        ASIA, AFRICA, EUROPE, AMERICA, AUSTRALIA;
-    };
 
 
     private Button btnSignUp;
@@ -40,13 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         final Spinner spinnerOrigin = findViewById(R.id.spinnerOrigin);
 
-        String[] continents = new String[Origin.values().length];
-        int i = 0;
-        for(Origin origin: Origin.values()){
-            continents[i++] = origin.toString();
-        }
-
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,continents);
+        ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this, R.array.countries_array, android.R.layout.simple_spinner_dropdown_item);
         spinnerOrigin.setAdapter(adapter);
         spinnerOrigin.setSelection(0);
 
@@ -62,6 +51,11 @@ public class SignUpActivity extends AppCompatActivity {
                 }else{
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);}
+
+                /*if (validateFirstname() | validateLastname() | validateEmail() | validatePassword() | validateConfirmPassword() | validateTermsConditions()){
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }*/
             }
         });
 
