@@ -29,7 +29,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        LayoutInflater inflater = LayoutInflater.from(context);
 
         view = inflater.inflate(R.layout.discover_more_movie_item, parent, false);
 
@@ -39,7 +39,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //holder.id.setText(movieList.get(position).getId());
-        holder.name.setText(movieList.get(position).getName());
+        //holder.name.setText(movieList.get(position).getName());
 
         // Using Glide library to display the image
         // https://image.tmdb.org/t/p/w500
@@ -57,14 +57,14 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         //private TextView id;
-        private TextView name;
+        //private TextView name;
         private ImageView img;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             //id = itemView.findViewById(R.id.id_tvt);
-            name = itemView.findViewById(R.id.discoverMoreNameTextView);
+            //name = itemView.findViewById(R.id.discoverMoreNameTextView);
             img = itemView.findViewById(R.id.discoverMoreItemView);
         }
     }
