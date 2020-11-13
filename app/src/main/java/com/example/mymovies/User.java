@@ -1,16 +1,22 @@
 package com.example.mymovies;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private final String email;
     private  String password;
     private  String firstname;
     private  String lastname;
+    private  String gender;
+    private String origin;
 
-    public User(String email, String password, String firstname, String lastname) {
+    public User(String email, String password, String firstname, String lastname, String gender, String origin) {
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.gender=gender;
+        this.origin=origin;
     }
 
     public String getEmail() {
@@ -29,6 +35,14 @@ public class User {
         return lastname;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -39,5 +53,13 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 }
