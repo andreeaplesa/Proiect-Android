@@ -1,19 +1,27 @@
 package com.example.mymovies;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavView;
-    private boolean pressedTwice = false;
+    private ProfileFragment profile;
+    private MoviesFragment movies;
+    private DiscoverFragment discover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +31,25 @@ public class MainActivity extends AppCompatActivity {
         bottomNavView = findViewById(R.id.bottomNavView);
         bottomNavView.setSelectedItemId(R.id.discover);
 
-       getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new DiscoverFragment()).commit();
+        //initializare fragmente
+
+        movies=new MoviesFragment();
+        discover=new DiscoverFragment();
+        profile=new ProfileFragment();
+
+        //transfer SignUp->FragmentProfile
+        User user= (User)getIntent().getSerializableExtra(SignUpActivity.ADD_USER);
+        Toast.makeText(getApplicationContext(),user.getFirstname()+" "+user.getLastname()+" "+user.getGender()+" "+user.getEmail()+" "+user.getOrigin()+" "+user.getPassword(),Toast.LENGTH_LONG).show();
+
+        FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
+
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("user_key",user);
+        profile.setArguments(bundle);
+        ft.replace(R.id.mainFrame, profile);
+        ft.commit();
+
+       getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, discover).commit();
 
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -33,41 +59,26 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.movies:
-                        fragment = new MoviesFragment();
+                        fragment = movies;
                         break;
                     case R.id.discover:
-                        fragment = new DiscoverFragment();
+                        fragment = discover;
                         break;
                     case R.id.profile:
-                        fragment = new ProfileFragment();
+                        fragment =profile;
                         break;
                 }
 
                 getSupportFragmentManager()
                         .beginTransaction()
-                        //.setCustomAnimations(R.anim.slide_up, R.anim.slide_down, R.anim.slide_up, R.anim.slide_down)
                         .replace(R.id.mainFrame, fragment)
                         .commit();
 
                 return true;
             }
         });
+
+
     }
 
-    @Override
-    public void onBackPressed() {
-        if (pressedTwice) {
-            super.onBackPressed();
-        }
-
-        this.pressedTwice = true;
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                pressedTwice=false;
-            }
-        }, 2000);
-    }
 }

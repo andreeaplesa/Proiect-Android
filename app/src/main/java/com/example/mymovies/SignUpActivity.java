@@ -1,7 +1,11 @@
 package com.example.mymovies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,20 +15,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final Pattern PASSWORD_PATTERN=Pattern.compile("^"+"(?=.*[0-9])"+"(?=.*[a-z])"+"(?=.*[A-Z])"+"(?=.*[@#$%^&+=])"+".{4,}"+"$");
 
-
     private Button btnSignUp;
     private CheckBox chkboxTermsConditions;
     TextInputLayout  textInputLayoutFirstname, textInputLayoutLastname,textInputLayoutEmailSignUp,textInputLayoutPasswordSignUp,textInputLayoutConfirmPassSignUp;
+
+
+    public static final String ADD_USER = "addUser";
 
 
     @Override
@@ -46,16 +55,45 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateFirstname() | !validateLastname() | !validateEmail() | !validatePassword() | !validateConfirmPassword() | !validateTermsConditions()){
-                    return;
-                }else{
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);}
+                //if (validateFirstname() & validateLastname() & validateEmail()  & validateTermsConditions()) {
 
-                /*if (validateFirstname() | validateLastname() | validateEmail() | validatePassword() | validateConfirmPassword() | validateTermsConditions()){
+                    textInputLayoutFirstname = findViewById(R.id.textInputLayoutFirstname);
+                    String firstname = textInputLayoutFirstname.getEditText().getText().toString();
+
+                    textInputLayoutLastname = findViewById(R.id.textInputLayoutLastname);
+                    String lastname = textInputLayoutLastname.getEditText().getText().toString();
+
+                    textInputLayoutEmailSignUp = findViewById(R.id.textInputLayoutEmailSignUp);
+                    String email = textInputLayoutEmailSignUp.getEditText().getText().toString();
+
+                    textInputLayoutPasswordSignUp = findViewById(R.id.textInputLayoutPasswordSignUp);
+                    String password = textInputLayoutPasswordSignUp.getEditText().getText().toString();
+
+
+                    String origin = spinnerOrigin.getSelectedItem().toString();
+
+                    RadioGroup radioBtnGroup = findViewById(R.id.radioBtnGroup);
+                    RadioButton radioButtonSelected = findViewById(radioBtnGroup.getCheckedRadioButtonId());
+
+                    String gender = radioButtonSelected.getText().toString();
+
+                    User user=new User(email,password,firstname,lastname,gender,origin);
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra(ADD_USER,user);
                     startActivity(intent);
-                }*/
+               // }
+//                FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
+//                ProfileFragment profile=new ProfileFragment();
+//                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+//                startActivity(intent);
+//                ft.replace(R.id.mainFrame, profile);
+//                ft.commit();
+//
+//                Bundle bundle=new Bundle();
+//                bundle.putSerializable("user_key",user);
+//                profile.setArguments(bundle);
+
             }
         });
 

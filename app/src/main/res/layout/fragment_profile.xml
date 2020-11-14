@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment"/>
+    tools:context=".ProfileFragment">
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Space
+            android:id="@+id/spTop"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/ivProfile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/girl" />
+
+        <Space
+            android:id="@+id/spBottom"
+            android:layout_width="407dp"
+            android:layout_height="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
+
+        <LinearLayout
+            android:id="@+id/llName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spBottom"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/tvFirstname"
+                    style="@style/profileStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingRight="18dp"
+                    android:text="Iulia"/>
+
+                <TextView
+                    android:id="@+id/tvLastname"
+                    style="@style/profileStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Plesa"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:text="TextView"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand"
+            />
+
+        <TextView
+            android:id="@+id/tvOriginProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="TextView"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:fontFamily="@font/quicksand"/>
+
+        <Button
+            android:id="@+id/btnEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/btnEditProfile"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

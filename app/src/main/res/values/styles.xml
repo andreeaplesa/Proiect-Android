@@ -27,4 +27,12 @@
         <item name="fontFamily">@font/quicksand</item>
         <item name="android:textColor">#6e45e2</item>
     </style>
+
+    <style name="profileStyle">
+        <item name="android:textSize">30dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/quicksand</item>
+        <item name="android:textColor">#6e45e2</item>
+
+    </style>
 </resources>
