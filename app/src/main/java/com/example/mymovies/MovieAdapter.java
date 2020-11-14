@@ -1,12 +1,14 @@
 package com.example.mymovies;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,9 +43,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.id.setText(movieList.get(position).getId());
-        holder.name.setText(movieList.get(position).getName());
-
         // Using Glide library to display the image
         // https://image.tmdb.org/t/p/w500
         Glide.with(context)
@@ -56,18 +55,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         return movieList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-
-        private TextView id;
-        private TextView name;
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         private ImageView img;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            id = itemView.findViewById(R.id.id_tvt);
-            name = itemView.findViewById(R.id.name_tvt);
-            img = itemView.findViewById(R.id.imageView);
+            img = itemView.findViewById(R.id.moviesImageView);
         }
     }
 }

@@ -65,7 +65,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            img = itemView.findViewById(R.id.discoverMoreItemView);
+            img = itemView.findViewById(R.id.discoverMoreImageView);
             cardView = itemView.findViewById(R.id.discoverMoreCardView);
             checkImgButton = itemView.findViewById(R.id.discoverMoreCheckImageButton);
 

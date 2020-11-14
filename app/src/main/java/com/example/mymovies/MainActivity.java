@@ -38,16 +38,20 @@ public class MainActivity extends AppCompatActivity {
         profile=new ProfileFragment();
 
         //transfer SignUp->FragmentProfile
-        User user= (User)getIntent().getSerializableExtra(SignUpActivity.ADD_USER);
-        Toast.makeText(getApplicationContext(),user.getFirstname()+" "+user.getLastname()+" "+user.getGender()+" "+user.getEmail()+" "+user.getOrigin()+" "+user.getPassword(),Toast.LENGTH_LONG).show();
+        if(getIntent().hasExtra(SignUpActivity.ADD_USER)){
+            User user= (User)getIntent().getSerializableExtra(SignUpActivity.ADD_USER);
+            Toast.makeText(getApplicationContext(),user.getFirstname()+" "+user.getLastname()+" "
+                    +user.getGender()+" "+user.getEmail()+" "+user.getOrigin()+" "+user.getPassword(),Toast.LENGTH_LONG).show();
+            FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
 
-        FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("user_key",user);
-        profile.setArguments(bundle);
-        ft.replace(R.id.mainFrame, profile);
-        ft.commit();
+            Bundle bundle=new Bundle();
+            bundle.putSerializable("user_key",user);
+            profile.setArguments(bundle);
+            // !!!
+            ft.replace(R.id.mainFrame, profile);
+            // !!!
+            ft.commit();
+        }
 
        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, discover).commit();
 

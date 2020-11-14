@@ -2,7 +2,9 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.GridView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -100,7 +102,7 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
 
     private void PutDataIntoRecyclerView(List<Movie> movieList){
         MovieAdapter adapter = new MovieAdapter(context, movieList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
 
         recyclerView.setAdapter(adapter);
     }

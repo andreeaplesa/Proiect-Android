@@ -1,6 +1,7 @@
 package com.example.mymovies;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,6 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        //holder.id.setText(movieList.get(position).getId());
         holder.name.setText(movieList.get(position).getName());
 
         // Using Glide library to display the image
@@ -55,18 +55,18 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
         return movieList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        //private TextView id;
         private TextView name;
         private ImageView img;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            //id = itemView.findViewById(R.id.id_tvt);
             name = itemView.findViewById(R.id.name_tvt_discover);
             img = itemView.findViewById(R.id.imageViewDiscover);
         }
     }
+
+
 }
