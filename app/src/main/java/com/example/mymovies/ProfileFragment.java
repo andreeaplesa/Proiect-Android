@@ -33,27 +33,30 @@ public class ProfileFragment extends Fragment {
 
 
       View view= inflater.inflate(R.layout.fragment_profile, container, false);
-      User user=(User)getArguments().getSerializable(USER_KEY);
-        tvFirstname= view.findViewById(R.id.tvFirstname);
-        tvFirstname.setText(user.getFirstname());
+      if(!getArguments().isEmpty()) {
 
-        tvLastname=view.findViewById(R.id.tvLastname);
-        tvLastname.setText(user.getLastname());
+          User user = (User) getArguments().getSerializable(USER_KEY);
+          tvFirstname = view.findViewById(R.id.tvFirstname);
+          tvFirstname.setText(user.getFirstname());
 
-        tvEmail=view.findViewById(R.id.tvEmail);
-        tvEmail.setText(user.getEmail());
+          tvLastname = view.findViewById(R.id.tvLastname);
+          tvLastname.setText(user.getLastname());
 
-        tvOrigin=view.findViewById(R.id.tvOriginProfile);
-        tvOrigin.setText(user.getOrigin());
+          tvEmail = view.findViewById(R.id.tvEmail);
+          tvEmail.setText(user.getEmail());
 
-        if (user.getGender().equals("Male")){
-            ivProfile=view.findViewById(R.id.ivProfile);
-            ivProfile.setImageResource(R.drawable.boy);
-        }else{
-            ivProfile=view.findViewById(R.id.ivProfile);
-            ivProfile.setImageResource(R.drawable.girl);
-        }
+          tvOrigin = view.findViewById(R.id.tvOriginProfile);
+          tvOrigin.setText(user.getOrigin());
 
+          if (user.getGender().equals("Male")) {
+              ivProfile = view.findViewById(R.id.ivProfile);
+              ivProfile.setImageResource(R.drawable.boy);
+          } else {
+              ivProfile = view.findViewById(R.id.ivProfile);
+              ivProfile.setImageResource(R.drawable.girl);
+          }
+
+      }
         return view;
 
     }

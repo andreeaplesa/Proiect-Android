@@ -48,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
             bundle.putSerializable("user_key",user);
             profile.setArguments(bundle);
             // !!!
-            ft.replace(R.id.mainFrame, profile);
+            //ft.replace(R.id.mainFrame, profile);
             // !!!
             ft.commit();
         }
 
-       getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, discover).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, discover).commit();
 
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
