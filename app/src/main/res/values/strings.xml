@@ -392,7 +392,14 @@ Last updated: 20.10.2019\n\n
     <string name="last_nameProfile">Last Name:</string>
     <string name="btnEditProfile">Edit</string>
     <string name="edit_your_profile">Edit your profile</string>
-    <string name="anonymus">Anonymus</string>
+    <string name="anonymous">Anonymous</string>
     <string name="unknown">unknown</string>
+    <string name="discoverMoreFilters">Filters</string>
+    <string name="see_all">SEE ALL</string>
+    <string name="movie_category">Movie Category</string>
+    <string name="movie_title">Movie_title</string>
+    <string name="movie_runtime">Movie_Runtime</string>
+    <string name="movie_genres">Movie_Genres</string>
+    <string name="discover_movies">Discover Movies</string>
 
 </resources>

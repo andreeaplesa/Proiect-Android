@@ -2,6 +2,7 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,17 +20,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtractMovies extends AsyncTask<String, Void, String> {
+public class ExtractMoviesForCategory extends AsyncTask<String, Void, String> {
     private Context context;
     private List<Movie> movieList;
-    private RecyclerView recyclerView;
-    private String className;
+    private int id;
 
-    public ExtractMovies(Context context, List<Movie> movieList, RecyclerView recyclerView, String className) {
+    public ExtractMoviesForCategory(Context context, List<Movie> movieList, int id) {
         this.context = context;
         this.movieList = movieList;
-        this.recyclerView = recyclerView;
-        this.className = className;
+        this.id = id;
     }
 
     @Override
@@ -40,8 +39,8 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
             HttpURLConnection urlConnection = null;
 
             try{
-                String top_rated_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=47a63a793ef28004cb08a49ec20932d0";
-                url = new URL(top_rated_movies);
+                String moviesForCategory = "https://api.themoviedb.org/3/discover/movie?api_key=47a63a793ef28004cb08a49ec20932d0&with_genres=" + id;
+                url = new URL(moviesForCategory);
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 InputStream is = urlConnection.getInputStream();
@@ -74,7 +73,7 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
             JSONObject jsonObject = new JSONObject(s);
 
             JSONArray jsonArray = jsonObject.getJSONArray("results");
-            for(int i=0;i<jsonArray.length();i++){
+            for(int i=0;i<jsonArray.length() / 2;i++){
                 JSONObject jsonMovie = jsonArray.getJSONObject(i);
 
                 Movie movie = new Movie();
@@ -108,17 +107,14 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-        PutDataIntoRecyclerView(movieList);
+        Log.d("Movies For Category", movieList.toString());
+
+        //PutDataIntoRecyclerView(movieList);
     }
 
-    private void PutDataIntoRecyclerView(List<Movie> movieList){
-        MovieAdapter adapter = new MovieAdapter(context, movieList, className);
-        if(className.contains("MoviesFragment")){
-            recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-        }else{
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        }
+    /*private void PutDataIntoRecyclerView(List<Movie> movieList){
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         recyclerView.setAdapter(adapter);
-    }
+    }*/
 }

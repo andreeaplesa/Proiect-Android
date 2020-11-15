@@ -29,6 +29,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="14dp"
             android:layout_marginTop="14dp"
             android:foreground="@drawable/ripple_effect_icon"
@@ -38,18 +39,22 @@
             android:id="@+id/tvDiscoverMore_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/relativeLayout_DiscoverMore_MovieRuntime_MovieGenres"
+            android:layout_above="@+id/discoverMoreLinearLayout"
             android:layout_alignParentStart="true"
-            android:text="Movie_title"
+            android:fontFamily="@font/open"
+            android:textSize="26sp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/background_title"
+            android:text="@string/movie_title"
             android:layout_marginStart="16dp"/>
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout_DiscoverMore_MovieRuntime_MovieGenres"
+        <LinearLayout
+            android:id="@+id/discoverMoreLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="1dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp">
 
@@ -57,20 +62,17 @@
                 android:id="@+id/tvDiscoverMore_MovieRuntime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Movie_Runtime"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"/>
+                android:text="@string/movie_runtime" />
 
             <TextView
                 android:id="@+id/tvDiscoverMore_MovieGenres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Movie_Genres"
-                android:layout_alignStart="@+id/tvDiscoverMore_MovieRuntime"
-                android:layout_marginStart="2dp"
+                android:text="@string/movie_genres"
+                android:layout_marginStart="4dp"
                 />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

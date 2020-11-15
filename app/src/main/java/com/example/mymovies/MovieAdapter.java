@@ -37,7 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         if(className.contains("MoviesFragment"))
             view = inflater.inflate(R.layout.movies_fragment_card_view, parent, false);
         else
-            view = inflater.inflate(R.layout.discover_movie_item, parent, false);
+            view = inflater.inflate(R.layout.discover_fragment_card_view, parent, false);
 
         return new MyViewHolder(view);
     }
@@ -50,7 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                     .load(posterImageString + movieList.get(position).getPoster_path())
                     .into(holder.img);
         } else{
-            holder.title.setText(movieList.get(position).getTitle());
+            //holder.title.setText(movieList.get(position).getTitle());
             String backdropImageString = "https://image.tmdb.org/t/p/original";
             Glide.with(context)
                     .load(backdropImageString + movieList.get(position).getBackdrop_path())
@@ -83,8 +83,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                     }
                 });
             }else{
-                title = itemView.findViewById(R.id.name_tvt_discover);
-                img = itemView.findViewById(R.id.imageViewDiscover);
+                //title = itemView.findViewById(R.id.tvDiscoverCategory);
+                img = itemView.findViewById(R.id.discoverImageView);
             }
         }
     }

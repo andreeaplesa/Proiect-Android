@@ -17,19 +17,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class ExtractMovies extends AsyncTask<String, Void, String> {
+public class ExtractCategories extends AsyncTask<String, Void, String> {
     private Context context;
-    private List<Movie> movieList;
+    private List<MovieCategory> categoryList;
     private RecyclerView recyclerView;
-    private String className;
 
-    public ExtractMovies(Context context, List<Movie> movieList, RecyclerView recyclerView, String className) {
+    public ExtractCategories(Context context, List<MovieCategory> categoryList, RecyclerView recyclerView) {
         this.context = context;
-        this.movieList = movieList;
+        this.categoryList = categoryList;
         this.recyclerView = recyclerView;
-        this.className = className;
     }
 
     @Override
@@ -40,8 +39,8 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
             HttpURLConnection urlConnection = null;
 
             try{
-                String top_rated_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=47a63a793ef28004cb08a49ec20932d0";
-                url = new URL(top_rated_movies);
+                String genres = "https://api.themoviedb.org/3/genre/movie/list?api_key=47a63a793ef28004cb08a49ec20932d0";
+                url = new URL(genres);
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 InputStream is = urlConnection.getInputStream();
@@ -73,52 +72,34 @@ public class ExtractMovies extends AsyncTask<String, Void, String> {
         try{
             JSONObject jsonObject = new JSONObject(s);
 
-            JSONArray jsonArray = jsonObject.getJSONArray("results");
+            JSONArray jsonArray = jsonObject.getJSONArray("genres");
             for(int i=0;i<jsonArray.length();i++){
-                JSONObject jsonMovie = jsonArray.getJSONObject(i);
+                JSONObject jsonCategory = jsonArray.getJSONObject(i);
 
-                Movie movie = new Movie();
-                movie.setId(jsonMovie.getLong("id"));
-                movie.setTitle(jsonMovie.getString("title"));
-                movie.setOverview(jsonMovie.getString("overview"));
+                MovieCategory movieCategory = new MovieCategory();
+                movieCategory.setId(jsonCategory.getInt("id"));
+                movieCategory.setCategoryName(jsonCategory.getString("name"));
 
-                // !!! Pentru runtime ar trebui sa cautam filmul dupa id si sa gasim runtime !!!
-                //movie.setRuntime(jsonMovie.getInt("runtime"));
-
-                movie.setRelease_date(jsonMovie.getString("release_date"));
-
-                JSONArray genres = jsonMovie.getJSONArray("genre_ids");
-                List<Integer> genres_ids = new ArrayList<>();
-                for(int j=0;j<genres.length(); j++){
-                    genres_ids.add(genres.getInt(j));
-                }
-
-                movie.setGenres(genres_ids);
-
-                movie.setVote_average(jsonMovie.getDouble("vote_average"));
-                movie.setVote_count(jsonMovie.getInt("vote_count"));
-
-                movie.setBackdrop_path(jsonMovie.getString("backdrop_path"));
-                movie.setPoster_path(jsonMovie.getString("poster_path"));
-
-                movieList.add(movie);
+                categoryList.add(movieCategory);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        PutDataIntoRecyclerView(movieList);
+        PutDataIntoRecyclerView(categoryList);
     }
 
-    private void PutDataIntoRecyclerView(List<Movie> movieList){
-        MovieAdapter adapter = new MovieAdapter(context, movieList, className);
+    private void PutDataIntoRecyclerView(List<MovieCategory> categoryList){
+        /*MovieAdapter adapter = new MovieAdapter(context, movieList);
         if(className.contains("MoviesFragment")){
             recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        }
+        }*/
+        CategoryAdapter categoryAdapter = new CategoryAdapter(context, categoryList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(categoryAdapter);
     }
 }
