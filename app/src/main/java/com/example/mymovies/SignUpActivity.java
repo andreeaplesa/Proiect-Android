@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
-    private static final Pattern PASSWORD_PATTERN=Pattern.compile("^"+"(?=.*[0-9])"+"(?=.*[a-z])"+"(?=.*[A-Z])"+"(?=.*[@#$%^&+=])"+".{4,}"+"$");
+    private static final Pattern PASSWORD_PATTERN=Pattern.compile("^"+"(?=.*[0-9])"+"(?=.*[a-z])"+".{4,}"+"$");
 
     private Button btnSignUp;
     private CheckBox chkboxTermsConditions;
@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if (validateFirstname() & validateLastname() & validateEmail()  & validateTermsConditions()) {
+                if (validateFirstname() & validateLastname() & validateEmail()  & validateTermsConditions()) {
 
                     textInputLayoutFirstname = findViewById(R.id.textInputLayoutFirstname);
                     String firstname = textInputLayoutFirstname.getEditText().getText().toString();
@@ -77,22 +77,12 @@ public class SignUpActivity extends AppCompatActivity {
 
                     String gender = radioButtonSelected.getText().toString();
 
-                    User user=new User(email,password,firstname,lastname,gender,origin);
+                    User user = new User(email, password, firstname, lastname, gender, origin);
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra(ADD_USER,user);
+                    intent.putExtra(ADD_USER, user);
                     startActivity(intent);
-               // }
-//                FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-//                ProfileFragment profile=new ProfileFragment();
-//                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-//                startActivity(intent);
-//                ft.replace(R.id.mainFrame, profile);
-//                ft.commit();
-//
-//                Bundle bundle=new Bundle();
-//                bundle.putSerializable("user_key",user);
-//                profile.setArguments(bundle);
+                }
 
             }
         });
@@ -193,7 +183,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (confirmPass.isEmpty()) {
             textInputLayoutConfirmPassSignUp.setError("Field can't be empty!");
             return false;
-        } else if (confirmPass != password) {
+        } else if (!confirmPass.equals(password)) {
             textInputLayoutConfirmPassSignUp.setError("Password doesn't match!");
             return false;
         } else {
