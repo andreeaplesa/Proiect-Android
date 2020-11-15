@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="155dp"
             android:layout_gravity="center_horizontal"
-            app:srcCompat="@drawable/girl" />
+             />
 
         <Space
             android:id="@+id/spBottom"
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingRight="18dp"
-                    android:text="Iulia"/>
+                    android:text="@string/anonymus"/>
 
                 <TextView
                     android:id="@+id/tvLastname"
@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Plesa"/>
+                    android:text=""/>
         </LinearLayout>
 
         <TextView
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
            android:layout_gravity="center_horizontal"
-            android:text="TextView"
+            android:text="@string/unknown"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/quicksand"
             />
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="TextView"
+            android:text="@string/unknown"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"
             android:fontFamily="@font/quicksand"/>

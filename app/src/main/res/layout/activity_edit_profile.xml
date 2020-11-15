@@ -1,9 +1,186 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EditProfileActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SignUpActivity">
+
+        <TextView
+            android:id="@+id/tvEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="76dp"
+            android:text="@string/edit_your_profile"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayoutFirstnameEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/textViewStyle"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutFirstnameEdit"
+            style="@style/layoutStyle"
+            android:layout_width="410dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayoutLastnameEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile"
+            app:startIconContentDescription="ic_person_fill"
+            app:startIconDrawable="@drawable/ic_person_fill">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_nameSignUp"
+                android:inputType="textPersonName" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutLastnameEdit"
+                style="@style/layoutStyle"
+                android:layout_width="410dp"
+                android:layout_height="90dp"
+                app:layout_constraintBottom_toTopOf="@+id/radioBtnGroupEdit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFirstnameEdit"
+                app:startIconContentDescription="ic_person_outline"
+                app:startIconDrawable="@drawable/ic_person_outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/last_nameSignUp"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/radioBtnGroupEdit"
+                android:layout_width="380dp"
+                android:layout_height="94dp"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.774"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutLastnameEdit"
+                app:layout_constraintBottom_toTopOf="@+id/tvOriginEdit">
+
+                <TextView
+                    android:id="@+id/tvGenderEdit"
+                    style="@style/textViewStyle"
+                    android:layout_width="99dp"
+                    android:layout_height="31dp"
+                    android:text="@string/gender" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnFemaleEdit"
+                    android:layout_width="101dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand"
+                    android:text="@string/female" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnMaleEdit"
+                    android:layout_width="99dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand"
+                    android:text="@string/male" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tvOriginEdit"
+                style="@style/textViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/origin"
+                app:layout_constraintBottom_toTopOf="@+id/spinnerOriginEdit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioBtnGroupEdit" />
+
+
+        <Spinner
+            android:id="@+id/spinnerOriginEdit"
+            style="@style/textViewStyle"
+            android:layout_width="357dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
+            android:paddingRight="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayoutPasswordEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.791"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrigin" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutPasswordEdit"
+            style="@style/layoutStyle"
+            android:layout_width="410dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            app:endIconMode="password_toggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerOriginEdit"
+            app:startIconContentDescription="ic_lock_open"
+            app:startIconDrawable="@drawable/ic_lock_open">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutConfirmPassEdit"
+            style="@style/layoutStyle"
+            android:layout_width="410dp"
+            android:layout_height="90dp"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toTopOf="@+id/btnEditProfileAct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPasswordEdit"
+            app:startIconContentDescription="ic_lock"
+            app:startIconDrawable="@drawable/ic_lock">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/confirm_passwordSignUp"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnEditProfileAct"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/btnEditProfile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutConfirmPassEdit"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

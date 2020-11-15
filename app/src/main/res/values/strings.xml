@@ -391,5 +391,8 @@ Last updated: 20.10.2019\n\n
     <string name="first_nameProfile">First Name:</string>
     <string name="last_nameProfile">Last Name:</string>
     <string name="btnEditProfile">Edit</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="anonymus">Anonymus</string>
+    <string name="unknown">unknown</string>
 
 </resources>
