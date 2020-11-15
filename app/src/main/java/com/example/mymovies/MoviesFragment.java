@@ -20,8 +20,6 @@ public class MoviesFragment extends Fragment{
     private List<Movie> movieList;
     private RecyclerView recyclerView;
 
-    private Button discoverMoreButton;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,17 +31,17 @@ public class MoviesFragment extends Fragment{
         movieList = new ArrayList<>();
         recyclerView = rootView.findViewById(R.id.moviesRecyclerView);
 
-        ExtractMovies extractMovies = new ExtractMovies(getActivity(), movieList, recyclerView);
+        ExtractMovies extractMovies = new ExtractMovies(getActivity(), movieList, recyclerView, this.getClass().toString());
         extractMovies.execute();
 
-       discoverMoreButton = rootView.findViewById(R.id.btnDiscoverMore);
-       discoverMoreButton.setOnClickListener(new View.OnClickListener() {
+        Button discoverMoreButton = rootView.findViewById(R.id.btnDiscoverMore);
+        discoverMoreButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(getActivity(), DiscoverMoreActivity.class);
                startActivity(intent);
            }
-       });
+        });
         return rootView;
     }
 }

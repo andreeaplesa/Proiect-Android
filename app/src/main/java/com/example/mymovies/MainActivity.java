@@ -1,24 +1,18 @@
 package com.example.mymovies;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavView;
     private ProfileFragment profile;
     private MoviesFragment movies;
     private DiscoverFragment discover;
@@ -28,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNavView = findViewById(R.id.bottomNavView);
+        BottomNavigationView bottomNavView = findViewById(R.id.bottomNavView);
         bottomNavView.setSelectedItemId(R.id.discover);
 
         //initializare fragmente
@@ -48,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
             profile.setArguments(bundle);
             ft.commit();
         }
-
 
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, discover).commit();
 

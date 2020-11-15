@@ -7,21 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.nio.charset.MalformedInputException;
 import java.util.List;
 
 public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreMovieAdapter.MyViewHolder> {
 
     private Context context;
     private List<Movie> movieList;
-    private final String imageString = "https://image.tmdb.org/t/p/original";
 
     public DiscoverMoreMovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
@@ -34,7 +34,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
         View view;
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        view = inflater.inflate(R.layout.discover_more_movie_item, parent, false);
+        view = inflater.inflate(R.layout.discover_more_card_view, parent, false);
 
 
         return new MyViewHolder(view);
@@ -44,9 +44,11 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // Using Glide library to display the image
         // https://image.tmdb.org/t/p/w500
+        holder.tvMovieTitle.setText(movieList.get(position).getTitle());
 
+        String imageString = "https://image.tmdb.org/t/p/original";
         Glide.with(context)
-                .load(imageString + movieList.get(position).getImage())
+                .load(imageString + movieList.get(position).getBackdrop_path())
                 .into(holder.img);
     }
 
@@ -56,18 +58,22 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
-        private CardView cardView;
+        private TextView tvMovieTitle;
+        private TextView tvMovieRuntime;
+        private TextView tvMovieGenres;
         private ImageView img;
-        private ImageButton checkImgButton;
         private boolean pressed = false;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
+            tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
+            tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
+
             img = itemView.findViewById(R.id.discoverMoreImageView);
-            cardView = itemView.findViewById(R.id.discoverMoreCardView);
-            checkImgButton = itemView.findViewById(R.id.discoverMoreCheckImageButton);
+            CardView cardView = itemView.findViewById(R.id.discoverMoreCardView);
+            ImageButton checkImgButton = itemView.findViewById(R.id.discoverMoreCheckImageButton);
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,9 +88,9 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                 @Override
                 public void onClick(View v) {
                     if(pressed)
-                        v.setBackground(v.getContext().getDrawable(R.drawable.ic_add_16_with_background));
+                        v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_add_16_with_background));
                     else
-                        v.setBackground(v.getContext().getDrawable(R.drawable.ic_check_16_with_background));
+                        v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_check_16_with_background));
                     pressed=!pressed;
                 }
             });

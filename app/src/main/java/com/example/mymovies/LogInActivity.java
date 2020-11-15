@@ -24,13 +24,9 @@ public class LogInActivity extends AppCompatActivity {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!validateEmail() | !validatePassword()){
-                    return;
-                }
-                else{ Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
-
+                if (validateEmail() & validatePassword()){
+                    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });

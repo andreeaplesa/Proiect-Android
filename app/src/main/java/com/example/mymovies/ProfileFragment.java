@@ -63,7 +63,6 @@ public class ProfileFragment extends Fragment {
                             Intent intent = new Intent(getActivity().getApplicationContext(), EditProfileActivity.class);
                             intent.putExtra(EDIT_USER,user);
                             startActivityForResult(intent, REQUEST_CODE);
-
                         }
                     });
 

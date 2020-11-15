@@ -1,15 +1,15 @@
 package com.example.mymovies;
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,14 +20,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     private Context context;
     private List<Movie> movieList;
-    private final String imageString = "https://image.tmdb.org/t/p/w500";
+    private String className;
 
-    public MovieAdapter() {
-    }
-
-    public MovieAdapter(Context context, List<Movie> movieList) {
+    public MovieAdapter(Context context, List<Movie> movieList, String className) {
         this.context = context;
         this.movieList = movieList;
+        this.className = className;
     }
 
     @NonNull
@@ -36,18 +34,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         View view;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        view = inflater.inflate(R.layout.movie_item, parent, false);
+        if(className.contains("MoviesFragment"))
+            view = inflater.inflate(R.layout.movies_fragment_card_view, parent, false);
+        else
+            view = inflater.inflate(R.layout.discover_movie_item, parent, false);
 
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        // Using Glide library to display the image
-        // https://image.tmdb.org/t/p/w500
-        Glide.with(context)
-                .load(imageString + movieList.get(position).getImage())
-                .into(holder.img);
+        if(className.contains("MoviesFragment")){
+            String posterImageString = "https://image.tmdb.org/t/p/w500";
+            Glide.with(context)
+                    .load(posterImageString + movieList.get(position).getPoster_path())
+                    .into(holder.img);
+        } else{
+            holder.title.setText(movieList.get(position).getTitle());
+            String backdropImageString = "https://image.tmdb.org/t/p/original";
+            Glide.with(context)
+                    .load(backdropImageString + movieList.get(position).getBackdrop_path())
+                    .into(holder.img);
+        }
+
     }
 
     @Override
@@ -56,12 +65,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
+        private TextView title;
         private ImageView img;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            img = itemView.findViewById(R.id.moviesImageView);
+            if(className.contains("MoviesFragment")){
+                img = itemView.findViewById(R.id.moviesImageView);
+                CardView cardView = itemView.findViewById(R.id.moviesCardView);
+
+                cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), MovieDetailsActivity.class);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }else{
+                title = itemView.findViewById(R.id.name_tvt_discover);
+                img = itemView.findViewById(R.id.imageViewDiscover);
+            }
         }
     }
 }
