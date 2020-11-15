@@ -18,9 +18,6 @@ import androidx.annotation.Nullable;
 
 import static android.app.Activity.RESULT_OK;
 
-
-
-
 public class ProfileFragment extends Fragment {
     public static final int REQUEST_CODE = 200;
     public static final String EDIT_USER = "editUser";
