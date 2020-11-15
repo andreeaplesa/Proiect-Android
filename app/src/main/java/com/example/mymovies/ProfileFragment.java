@@ -15,12 +15,7 @@ import androidx.annotation.Nullable;
 
 import static android.app.Activity.RESULT_OK;
 
-
-
-
 public class ProfileFragment extends Fragment {
-    public static final int REQUEST_CODE = 200;
-
     private static final String USER_KEY="user_key";
     TextView tvFirstname, tvLastname,tvEmail,tvOrigin;
     ImageView ivProfile;
