@@ -91,12 +91,6 @@ public class ExtractCategories extends AsyncTask<String, Void, String> {
     }
 
     private void PutDataIntoRecyclerView(List<MovieCategory> categoryList){
-        /*MovieAdapter adapter = new MovieAdapter(context, movieList);
-        if(className.contains("MoviesFragment")){
-            recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-        }else{
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        }*/
         CategoryAdapter categoryAdapter = new CategoryAdapter(context, categoryList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 

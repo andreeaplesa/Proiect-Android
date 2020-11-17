@@ -24,11 +24,13 @@ public class ExtractMoviesForCategory extends AsyncTask<String, Void, String> {
     private Context context;
     private List<Movie> movieList;
     private int id;
+    private RecyclerView recyclerView;
 
-    public ExtractMoviesForCategory(Context context, List<Movie> movieList, int id) {
+    public ExtractMoviesForCategory(Context context, List<Movie> movieList, int id, RecyclerView recyclerView) {
         this.context = context;
         this.movieList = movieList;
         this.id = id;
+        this.recyclerView = recyclerView;
     }
 
     @Override
@@ -109,12 +111,15 @@ public class ExtractMoviesForCategory extends AsyncTask<String, Void, String> {
 
         Log.d("Movies For Category", movieList.toString());
 
-        //PutDataIntoRecyclerView(movieList);
+        PutDataIntoRecyclerView(movieList);
     }
 
-    /*private void PutDataIntoRecyclerView(List<Movie> movieList){
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+    private void PutDataIntoRecyclerView(List<Movie> movieList){
+        CategoryMovieAdapter categoryMovieAdapter = new CategoryMovieAdapter(context, movieList);
 
-        recyclerView.setAdapter(adapter);
-    }*/
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(categoryMovieAdapter);
+    }
 }

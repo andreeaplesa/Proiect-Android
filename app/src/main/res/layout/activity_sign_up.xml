@@ -3,33 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/tvSignUp"
+        style="@style/textViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="76dp"
         android:text="@string/register_now"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutFirstname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/textViewStyle"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutFirstname"
         style="@style/layoutStyle"
         android:layout_width="410dp"
         android:layout_height="90dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutLastname"
+        android:layout_marginTop="76dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
@@ -48,7 +45,6 @@
         style="@style/layoutStyle"
         android:layout_width="410dp"
         android:layout_height="90dp"
-        app:layout_constraintBottom_toTopOf="@+id/radioBtnGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFirstname"
@@ -65,11 +61,11 @@
 
     <RadioGroup
         android:id="@+id/radioBtnGroup"
-        android:layout_width="380dp"
-        android:layout_height="94dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.774"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutLastname">
 
@@ -100,26 +96,22 @@
         style="@style/textViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/origin"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerOrigin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioBtnGroup" />
 
     <Spinner
         android:id="@+id/spinnerOrigin"
         style="@style/textViewStyle"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="9dp"
         android:paddingEnd="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutEmailSignUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOrigin" />
 
@@ -128,8 +120,7 @@
         style="@style/layoutStyle"
         android:layout_width="410dp"
         android:layout_height="90dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutPasswordSignUp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerOrigin"
@@ -150,7 +141,6 @@
         android:layout_width="410dp"
         android:layout_height="90dp"
         app:endIconMode="password_toggle"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutConfirmPassSignUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmailSignUp"
@@ -169,9 +159,7 @@
         style="@style/layoutStyle"
         android:layout_width="410dp"
         android:layout_height="90dp"
-        android:layout_marginBottom="10dp"
         app:endIconMode="password_toggle"
-        app:layout_constraintBottom_toTopOf="@+id/chkboxTermsConditions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPasswordSignUp"
@@ -224,7 +212,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chkboxTermsConditions" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTermsConditions" />
 
 
 

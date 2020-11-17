@@ -19,7 +19,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     private Context context;
     private List<MovieCategory> categoryList;
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
     public CategoryAdapter(Context context, List<MovieCategory> categoryList) {
         this.context = context;
@@ -41,23 +40,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         List<Movie> movieListExtracted = new ArrayList<>();
 
-        ExtractMoviesForCategory extractMoviesForCategory = new ExtractMoviesForCategory(context, movieListExtracted, categoryList.get(position).getId());
+        ExtractMoviesForCategory extractMoviesForCategory = new ExtractMoviesForCategory(holder.recyclerViewAdapter.getContext(), movieListExtracted, categoryList.get(position).getId(), holder.recyclerViewAdapter);
         extractMoviesForCategory.execute();
-
-        for(int i=0;i<movieListExtracted.size();i++){
-            Log.d("On bind", movieListExtracted.get(i).toString());
-        }
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.recyclerViewAdapter.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        layoutManager.setInitialPrefetchItemCount(movieListExtracted.size());
-
-        CategoryMovieAdapter categoryMovieAdapter = new CategoryMovieAdapter(context, movieListExtracted);
-
-        holder.recyclerViewAdapter.setLayoutManager(layoutManager);
-        holder.recyclerViewAdapter.setAdapter(categoryMovieAdapter);
-
-        holder.recyclerViewAdapter.setRecycledViewPool(viewPool);
     }
 
     @Override

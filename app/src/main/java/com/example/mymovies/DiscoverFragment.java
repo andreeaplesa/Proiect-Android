@@ -28,8 +28,6 @@ public class DiscoverFragment extends Fragment {
 
         View rootView =  inflater.inflate(R.layout.fragment_discover, container, false);
 
-        /*movieList = new ArrayList<>();
-        recyclerView = rootView.findViewById(R.id.discoverRecyclerView);*/
         movieCategories = new ArrayList<>();
         recyclerView = rootView.findViewById(R.id.discoverRecyclerView);
 

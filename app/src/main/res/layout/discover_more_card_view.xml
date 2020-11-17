@@ -9,6 +9,7 @@
     android:layout_marginLeft="14dp"
     android:layout_marginRight="14dp"
     app:cardCornerRadius="8dp"
+    android:elevation="5dp"
     android:foreground="@drawable/ripple_effect_card_view"
     android:clickable="true"
     android:focusable="true">
