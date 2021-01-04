@@ -1,5 +1,6 @@
 package com.example.mymovies;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,6 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -32,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
     private CheckBox chkboxTermsConditions;
     TextInputLayout  textInputLayoutFirstname, textInputLayoutLastname,textInputLayoutEmailSignUp,textInputLayoutPasswordSignUp,textInputLayoutConfirmPassSignUp;
 
+    private FirebaseDatabase database;
 
     public static final String ADD_USER = "addUser";
 
@@ -41,6 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        database = FirebaseDatabase.getInstance();
 
         final Spinner spinnerOrigin = findViewById(R.id.spinnerOrigin);
 
@@ -69,7 +78,6 @@ public class SignUpActivity extends AppCompatActivity {
                     textInputLayoutPasswordSignUp = findViewById(R.id.textInputLayoutPasswordSignUp);
                     String password = textInputLayoutPasswordSignUp.getEditText().getText().toString();
 
-
                     String origin = spinnerOrigin.getSelectedItem().toString();
 
                     RadioGroup radioBtnGroup = findViewById(R.id.radioBtnGroup);
@@ -78,6 +86,14 @@ public class SignUpActivity extends AppCompatActivity {
                     String gender = radioButtonSelected.getText().toString();
 
                     User user = new User(email, password, firstname, lastname, gender, origin);
+
+                    writeUserInFirebase(user);
+
+                    SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
+                    SharedPreferences.Editor myEditor = settingsFile.edit();
+
+                    myEditor.putString("email", email);
+                    myEditor.apply();
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra(ADD_USER, user);
@@ -116,6 +132,24 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    private void writeUserInFirebase(final User user){
+        final DatabaseReference myRef = database.getReference("users");
+        myRef.keepSynced(true);
+
+        myRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                user.setUid(myRef.child("users").push().getKey());
+
+                myRef.child("users").child(user.getUid()).setValue(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
 
     private boolean validateFirstname() {

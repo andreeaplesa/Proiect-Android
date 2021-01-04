@@ -3,12 +3,16 @@ package com.example.mymovies;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private final String email;
+    private String uid;
+    private String email;
     private  String password;
     private  String firstname;
     private  String lastname;
     private  String gender;
     private String origin;
+
+    public User() {
+    }
 
     public User(String email, String password, String firstname, String lastname, String gender, String origin) {
         this.email = email;
@@ -17,6 +21,24 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.gender=gender;
         this.origin=origin;
+    }
+
+    public User(String email, String password, String firstname, String lastname, String gender, String origin, String uid) {
+        this.email = email;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gender=gender;
+        this.origin=origin;
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getEmail() {
