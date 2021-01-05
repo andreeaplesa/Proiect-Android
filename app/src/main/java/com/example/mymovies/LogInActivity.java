@@ -18,7 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LogInActivity extends AppCompatActivity {
-
+    boolean foundEmail=false;
+    boolean foundPassword=false;
     Button btnLogIn,btnSignUp;
     TextInputLayout textInputLayoutEmail,textInputLayoutPassword;
     private FirebaseDatabase database;
@@ -29,52 +30,26 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        // !! Asa raman logat
-//        SharedPreferences mySettings = getSharedPreferences("prefs", 0);
-//        final String email = mySettings.getString("email", null);
-//        if(email != null){
-//            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-//            startActivity(intent);
-//        }
-
         database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("users");
+        myRef.keepSynced(true);
 
         btnLogIn=findViewById(R.id.btnLogIn);
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateEmail() & validatePassword()){
+
+                if (validateEmail(myRef) & validatePassword(myRef)){
                     textInputLayoutEmail=findViewById(R.id.textInputLayoutEmail);
                     final String emailText =textInputLayoutEmail.getEditText().getText().toString().trim();
+                    SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
+                    SharedPreferences.Editor myEditor = settingsFile.edit();
 
-                    final DatabaseReference myRef = database.getReference("users");
-                    myRef.keepSynced(true);
-
-                    myRef.child("users").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()) {
-                                for (DataSnapshot dn : snapshot.getChildren()) {
-                                    User user = dn.getValue(User.class);
-                                    if(user.getEmail().equals(emailText)){
-                                        SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
-                                        SharedPreferences.Editor myEditor = settingsFile.edit();
-
-                                        myEditor.putString("email", emailText);
-                                        myEditor.apply();
-
-                                        Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    myEditor.putString("email", emailText);
+                    myEditor.apply();
+                    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -89,9 +64,9 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateEmail(){
+    private boolean validateEmail(DatabaseReference myRef){
         textInputLayoutEmail=findViewById(R.id.textInputLayoutEmail);
-        String email=textInputLayoutEmail.getEditText().getText().toString().trim();
+        final String email=textInputLayoutEmail.getEditText().getText().toString().trim();
 
         if (email.isEmpty())
         {textInputLayoutEmail.setError("Field can't be empty!");
@@ -101,20 +76,71 @@ public class LogInActivity extends AppCompatActivity {
         {textInputLayoutEmail.setError("Please enter a valid email address!");
             return false;
         }
-        else {textInputLayoutEmail.setError(null);
-            return true;}
+        else {
+            myRef.child("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot dn : snapshot.getChildren()) {
+                            User user = dn.getValue(User.class);
+                            if (user.getEmail().equals(email)) {
+                                foundEmail = true;
+                            }
+                        }
+                    }
 
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            if (foundEmail) {
+                textInputLayoutEmail.setError(null);
+                return true;
+            } else {
+                textInputLayoutEmail.setError("This email doesn't exist!");
+                return false;
+            }
+
+        }
     }
 
-    private boolean validatePassword(){
+    private boolean validatePassword(DatabaseReference myRef){
         textInputLayoutPassword=findViewById(R.id.textInputLayoutPassword);
-        String password = textInputLayoutPassword.getEditText().getText().toString().trim();
+        final String password = textInputLayoutPassword.getEditText().getText().toString().trim();
         if (password.isEmpty()){
             textInputLayoutPassword.setError("Field can't be empty!");
             return false;}
         else {
-            textInputLayoutPassword.setError(null);
-            return true;
+            myRef.child("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot dn : snapshot.getChildren()) {
+                            User user = dn.getValue(User.class);
+                            if (user.getPassword().equals(password)) {
+                                foundPassword = true;
+                            }
+                        }
+                    }
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            if (foundPassword) {
+                textInputLayoutPassword.setError(null);
+                return true;
+            } else {
+                textInputLayoutPassword.setError("Password incorrect!");
+                return false;
+            }
+
         }
     }
 }

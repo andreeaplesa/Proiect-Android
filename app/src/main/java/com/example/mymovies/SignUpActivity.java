@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 public class SignUpActivity extends AppCompatActivity {
     private static final Pattern PASSWORD_PATTERN=Pattern.compile("^"+"(?=.*[0-9])"+"(?=.*[a-z])"+".{4,}"+"$");
 
+    boolean foundEmail=false;
     private Button btnSignUp;
     private CheckBox chkboxTermsConditions;
     TextInputLayout  textInputLayoutFirstname, textInputLayoutLastname,textInputLayoutEmailSignUp,textInputLayoutPasswordSignUp,textInputLayoutConfirmPassSignUp;
@@ -50,6 +51,8 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("users");
+        myRef.keepSynced(true);
 
         final Spinner spinnerOrigin = findViewById(R.id.spinnerOrigin);
 
@@ -64,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateFirstname() & validateLastname() & validateEmail()  & validateTermsConditions()) {
+                if (validateFirstname() & validateLastname() & validateEmail(myRef)& validatePassword()& validateConfirmPassword()  & validateTermsConditions()) {
 
                     textInputLayoutFirstname = findViewById(R.id.textInputLayoutFirstname);
                     String firstname = textInputLayoutFirstname.getEditText().getText().toString();
@@ -87,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                     User user = new User(email, password, firstname, lastname, gender, origin);
 
-                    writeUserInFirebase(user);
+                    writeUserInFirebase(user,myRef);
 
                     SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
                     SharedPreferences.Editor myEditor = settingsFile.edit();
@@ -96,8 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
                     myEditor.apply();
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra(ADD_USER, user);
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -132,9 +135,8 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void writeUserInFirebase(final User user){
-        final DatabaseReference myRef = database.getReference("users");
-        myRef.keepSynced(true);
+    private void writeUserInFirebase(final User user, final DatabaseReference myRef){
+
 
         myRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -177,9 +179,9 @@ public class SignUpActivity extends AppCompatActivity {
             return true;
         }
     }
-    private boolean validateEmail(){
+    private boolean validateEmail(DatabaseReference myRef){
         textInputLayoutEmailSignUp=findViewById(R.id.textInputLayoutEmailSignUp);
-        String email=textInputLayoutEmailSignUp.getEditText().getText().toString().trim();
+        final String email=textInputLayoutEmailSignUp.getEditText().getText().toString().trim();
 
         if (email.isEmpty())
         {textInputLayoutEmailSignUp.setError("Field can't be empty!");
@@ -189,9 +191,35 @@ public class SignUpActivity extends AppCompatActivity {
         {textInputLayoutEmailSignUp.setError("Please enter a valid email address!");
             return false;
         }
-        else {textInputLayoutEmailSignUp.setError(null);
-            return true;}
+        else {
+            myRef.child("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot dn : snapshot.getChildren()) {
+                            User user = dn.getValue(User.class);
+                            if (user.getEmail().equals(email)) {
+                                foundEmail = true;
+                            }
+                        }
+                    }
 
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            if (foundEmail) {
+                textInputLayoutEmailSignUp.setError("This email adress is already being used!");
+                return false;
+            } else {
+                textInputLayoutEmailSignUp.setError(null);
+                return true;
+            }
+        }
     }
 
     private boolean validatePassword(){

@@ -31,18 +31,6 @@ public class MainActivity extends AppCompatActivity {
         discover=new DiscoverFragment();
         profile=new ProfileFragment();
 
-        //transfer SignUp->FragmentProfile
-        if(getIntent().hasExtra(SignUpActivity.ADD_USER)){
-            User user= (User)getIntent().getSerializableExtra(SignUpActivity.ADD_USER);
-            Toast.makeText(getApplicationContext(),"Hello, "+user.getFirstname()+" "+user.getLastname(),Toast.LENGTH_LONG).show();
-
-            FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-            Bundle bundle=new Bundle();
-            bundle.putSerializable("user_key",user);
-            profile.setArguments(bundle);
-            ft.commit();
-        }
-
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, discover).commit();
 
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
