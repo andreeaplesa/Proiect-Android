@@ -40,7 +40,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         List<Movie> movieListExtracted = new ArrayList<>();
 
-        ExtractMoviesForCategory extractMoviesForCategory = new ExtractMoviesForCategory(holder.recyclerViewAdapter.getContext(), movieListExtracted, categoryList.get(position).getId(), holder.recyclerViewAdapter);
+        ExtractMoviesForCategory extractMoviesForCategory = new ExtractMoviesForCategory(holder.recyclerViewAdapter.getContext(), movieListExtracted, categoryList.get(position).getCategoryId(), holder.recyclerViewAdapter);
         extractMoviesForCategory.execute();
     }
 

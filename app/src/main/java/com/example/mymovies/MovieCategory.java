@@ -1,28 +1,41 @@
 package com.example.mymovies;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity(tableName = "movieCategory")
 public class MovieCategory {
-
-    private int id;
+    @PrimaryKey
+    private int categoryId;
     private String categoryName;
+    @Ignore
     private List<Movie> movieList;
 
+    @Ignore
     public MovieCategory() {
     }
 
+    @Ignore
     public MovieCategory(int id, String categoryName, List<Movie> movieList) {
-        this.id = id;
+        this.categoryId = id;
         this.categoryName = categoryName;
         this.movieList = movieList;
     }
 
-    public int getId() {
-        return id;
+    public MovieCategory(int categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {

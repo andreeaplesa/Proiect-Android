@@ -77,7 +77,7 @@ public class ExtractCategories extends AsyncTask<String, Void, String> {
                 JSONObject jsonCategory = jsonArray.getJSONObject(i);
 
                 MovieCategory movieCategory = new MovieCategory();
-                movieCategory.setId(jsonCategory.getInt("id"));
+                movieCategory.setCategoryId(jsonCategory.getInt("id"));
                 movieCategory.setCategoryName(jsonCategory.getString("name"));
 
                 categoryList.add(movieCategory);

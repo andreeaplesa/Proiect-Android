@@ -1,28 +1,38 @@
 package com.example.mymovies;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity(tableName = "movies")
 public class Movie {
-    private long id;
+    @PrimaryKey
+    private long movieId;
 
     private String title;
+    private String backdrop_path;
+    private String poster_path;
     private String overview;
-    private int runtime;
     private String release_date;
+    private int runtime;
+    private int revenue;
+
+    @Ignore
     private List<Integer> genres;
 
     private double vote_average;
     private int vote_count;
 
-    private String backdrop_path;
-    private String poster_path;
-
+    @Ignore
     public Movie() {
     }
 
+    @Ignore
     public Movie(long id, String title, String overview, int runtime, String release_date, List<Integer> genres, double vote_average,
                  int vote_count, String backdrop_path, String poster_path) {
-        this.id = id;
+        this.movieId = id;
         this.title = title;
         this.overview = overview;
         this.runtime = runtime;
@@ -34,12 +44,25 @@ public class Movie {
         this.poster_path = poster_path;
     }
 
-    public long getId() {
-        return id;
+    public Movie(long movieId, String title, String backdrop_path, String poster_path, String overview, String release_date, int runtime, int revenue, double vote_average, int vote_count) {
+        this.movieId = movieId;
+        this.title = title;
+        this.backdrop_path = backdrop_path;
+        this.poster_path = poster_path;
+        this.overview = overview;
+        this.release_date = release_date;
+        this.runtime = runtime;
+        this.revenue = revenue;
+        this.vote_average = vote_average;
+        this.vote_count = vote_count;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(long movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -64,6 +87,14 @@ public class Movie {
 
     public void setRuntime(int runtime) {
         this.runtime = runtime;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
     }
 
     public String getRelease_date() {
@@ -117,7 +148,7 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "id=" + id +
+                "id=" + movieId +
                 ", title='" + title + '\'' +
                 ", overview='" + overview + '\'' +
                 ", runtime=" + runtime +

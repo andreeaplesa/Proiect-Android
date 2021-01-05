@@ -79,7 +79,7 @@ public class ExtractMoviesForCategory extends AsyncTask<String, Void, String> {
                 JSONObject jsonMovie = jsonArray.getJSONObject(i);
 
                 Movie movie = new Movie();
-                movie.setId(jsonMovie.getLong("id"));
+                movie.setMovieId(jsonMovie.getLong("id"));
                 movie.setTitle(jsonMovie.getString("title"));
                 movie.setOverview(jsonMovie.getString("overview"));
 
