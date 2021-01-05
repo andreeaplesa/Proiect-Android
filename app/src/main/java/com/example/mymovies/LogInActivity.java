@@ -31,7 +31,7 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
         database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("users");
+        final DatabaseReference myRef = database.getReference("MyMovies");
         myRef.keepSynced(true);
 
         btnLogIn=findViewById(R.id.btnLogIn);
@@ -42,6 +42,7 @@ public class LogInActivity extends AppCompatActivity {
                 if (validateEmail(myRef) & validatePassword(myRef)){
                     textInputLayoutEmail=findViewById(R.id.textInputLayoutEmail);
                     final String emailText =textInputLayoutEmail.getEditText().getText().toString().trim();
+
                     SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
                     SharedPreferences.Editor myEditor = settingsFile.edit();
 
@@ -77,7 +78,7 @@ public class LogInActivity extends AppCompatActivity {
             return false;
         }
         else {
-            myRef.child("users").addValueEventListener(new ValueEventListener() {
+            myRef.child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
@@ -85,6 +86,8 @@ public class LogInActivity extends AppCompatActivity {
                             User user = dn.getValue(User.class);
                             if (user.getEmail().equals(email)) {
                                 foundEmail = true;
+                            } else {
+                                foundEmail = false;
                             }
                         }
                     }
@@ -115,7 +118,7 @@ public class LogInActivity extends AppCompatActivity {
             textInputLayoutPassword.setError("Field can't be empty!");
             return false;}
         else {
-            myRef.child("users").addValueEventListener(new ValueEventListener() {
+            myRef.child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
@@ -123,6 +126,8 @@ public class LogInActivity extends AppCompatActivity {
                             User user = dn.getValue(User.class);
                             if (user.getPassword().equals(password)) {
                                 foundPassword = true;
+                            } else {
+                                foundPassword = false;
                             }
                         }
                     }

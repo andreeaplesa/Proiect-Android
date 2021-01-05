@@ -17,13 +17,13 @@ public interface MovieCategoryDao {
     void insert(List<MovieCategory> movieCategoryList);
 
     @Query("SELECT * FROM MOVIECATEGORY")
-    List<MovieCategory> getAll();
+    List<MovieCategory> getAllCategories();
 
     @Query("SELECT * FROM MOVIECATEGORY WHERE categoryName= :categoryName")
     MovieCategory getMovieCategoryByName(String categoryName);
 
     @Query("DELETE FROM MOVIECATEGORY")
-    void deleteAll();
+    void deleteAllCategories();
 
     @Delete
     void deleteMovieCategory(MovieCategory movieCategory);

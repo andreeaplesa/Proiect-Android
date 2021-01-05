@@ -90,10 +90,10 @@ public class ProfileFragment extends Fragment {
         SharedPreferences mySettings = this.getActivity().getSharedPreferences("prefs", 0);
         final String email = mySettings.getString("email", null);
 
-        final DatabaseReference myRef = database.getReference("users");
+        final DatabaseReference myRef = database.getReference("MyMovies");
         myRef.keepSynced(true);
 
-        myRef.child("users").addValueEventListener(new ValueEventListener() {
+        myRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){

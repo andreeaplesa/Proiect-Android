@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Movie.class, MovieCategory.class, MovieCategoriesCrossRef.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class, MovieCategory.class, MovieCategoriesCrossRef.class}, version = 2, exportSchema = false)
 public abstract class MovieDB extends RoomDatabase {
     private final static String DB_NAME = "movies.db";
     private static MovieDB instanta;

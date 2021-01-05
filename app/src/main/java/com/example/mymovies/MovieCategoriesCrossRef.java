@@ -2,6 +2,7 @@ package com.example.mymovies;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 
 @Entity(tableName = "movieCategoriesCR", primaryKeys = {"movieId", "categoryId"})
 public class MovieCategoriesCrossRef {

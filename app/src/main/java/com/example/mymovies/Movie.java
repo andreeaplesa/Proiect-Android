@@ -22,6 +22,7 @@ public class Movie {
     @Ignore
     private List<Integer> genres;
 
+    private double my_rating;
     private double vote_average;
     private int vote_count;
 
@@ -111,6 +112,14 @@ public class Movie {
 
     public void setGenres(List<Integer> genres) {
         this.genres = genres;
+    }
+
+    public double getMy_rating() {
+        return my_rating;
+    }
+
+    public void setMy_rating(double my_rating) {
+        this.my_rating = my_rating;
     }
 
     public double getVote_average() {

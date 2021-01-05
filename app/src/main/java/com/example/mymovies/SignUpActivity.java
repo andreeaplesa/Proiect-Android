@@ -51,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("users");
+        final DatabaseReference myRef = database.getReference("MyMovies");
         myRef.keepSynced(true);
 
         final Spinner spinnerOrigin = findViewById(R.id.spinnerOrigin);
@@ -102,7 +102,6 @@ public class SignUpActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-
             }
         });
 
@@ -138,12 +137,12 @@ public class SignUpActivity extends AppCompatActivity {
     private void writeUserInFirebase(final User user, final DatabaseReference myRef){
 
 
-        myRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user.setUid(myRef.child("users").push().getKey());
+                user.setUid(myRef.child("Users").push().getKey());
 
-                myRef.child("users").child(user.getUid()).setValue(user);
+                myRef.child("Users").child(user.getUid()).setValue(user);
             }
 
             @Override
@@ -192,7 +191,7 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         }
         else {
-            myRef.child("users").addValueEventListener(new ValueEventListener() {
+            myRef.child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {

@@ -2,6 +2,8 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -36,8 +43,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
 
         view = inflater.inflate(R.layout.discover_more_card_view, parent, false);
 
-
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, context, movieList);
     }
 
     @Override
@@ -61,19 +67,28 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
         private TextView tvMovieTitle;
         private TextView tvMovieRuntime;
         private TextView tvMovieGenres;
+        private ImageButton checkImgButton;
         private ImageView img;
         private boolean pressed = false;
 
-        public MyViewHolder(@NonNull View itemView) {
+        private Context context;
+        private String email;
+        private SharedPreferences settingsFile;
+        private FirebaseDatabase database;
+        private DatabaseReference myRef;
+        private String uid;
+
+
+
+        public MyViewHolder(@NonNull final View itemView, Context context, final List<Movie> movieList) {
             super(itemView);
 
-            tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
-            tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
+            this.context = context;
             tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
 
             img = itemView.findViewById(R.id.discoverMoreImageView);
             CardView cardView = itemView.findViewById(R.id.discoverMoreCardView);
-            ImageButton checkImgButton = itemView.findViewById(R.id.discoverMoreCheckImageButton);
+            checkImgButton = itemView.findViewById(R.id.discoverMoreCheckImageButton);
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,13 +99,60 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                 }
             });
 
+            settingsFile = context.getSharedPreferences("prefs", 0);
+            email=settingsFile.getString("email",null);
+
+            database = FirebaseDatabase.getInstance();
+            myRef = database.getReference("MyMovies");
+            myRef.keepSynced(true);
+
+
             checkImgButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(pressed)
+                    final int position = getAdapterPosition();
+
+                    if(pressed){
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_add_16_with_background));
-                    else
+                    }
+                    else {
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_check_16_with_background));
+
+                        myRef.child("Users").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    for (DataSnapshot dn : snapshot.getChildren()) {
+                                        User user = dn.getValue(User.class);
+                                        if (user.getEmail().equals(email)) {
+                                            uid = user.getUid();
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                        myRef.child("UsersWithMovies").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                myRef.child("UsersWithMovies").child(uid)
+                                        .setValue(movieList.get(position).getMovieId());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+
                     pressed=!pressed;
                 }
             });

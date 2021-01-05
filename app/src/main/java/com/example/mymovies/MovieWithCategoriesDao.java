@@ -8,6 +8,7 @@ import java.util.List;
 
 @Dao
 public interface MovieWithCategoriesDao {
+    @Transaction
     @Query("SELECT * FROM MOVIES")
     List<MovieWithCategories> getMovieWithCategories();
 }
