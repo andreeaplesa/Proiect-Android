@@ -44,5 +44,10 @@
     <style name="AppTheme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen_background</item>
     </style>
+    <style name="AppTheme.DiscoverMore" parent="Theme.AppCompat.Light">
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+    </style>
 
 </resources>

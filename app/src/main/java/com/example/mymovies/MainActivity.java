@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private ProfileFragment profile;
     private MoviesFragment movies;
     private DiscoverFragment discover;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavView = findViewById(R.id.bottomNavView);
         bottomNavView.setSelectedItemId(R.id.discover);
+
 
         //initializare fragmente
 
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                Fragment fragment = null;
+                fragment = null;
 
                 switch (item.getItemId()){
                     case R.id.movies:
@@ -62,5 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }

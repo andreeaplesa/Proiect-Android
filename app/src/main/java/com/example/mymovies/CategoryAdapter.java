@@ -1,10 +1,12 @@
 package com.example.mymovies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,12 +54,28 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCategoryName;
         private RecyclerView recyclerViewAdapter;
+        private Button btnSeeAll;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvCategoryName = itemView.findViewById(R.id.tvDiscoverCategory);
             recyclerViewAdapter = itemView.findViewById(R.id.discoverFragmentCategoryRecyclerView);
+
+            btnSeeAll=itemView.findViewById(R.id.btnSeeAll);
+            btnSeeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position=getAdapterPosition();
+                    Intent intent=new Intent(v.getContext(),DiscoverMoreActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("categoryId",categoryList.get(position).getCategoryId());
+                    intent.putExtra("categoryName",categoryList.get(position).getCategoryName());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+
         }
     }
 }

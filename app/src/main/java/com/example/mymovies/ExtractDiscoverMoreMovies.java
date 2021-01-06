@@ -22,11 +22,13 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
     private Context context;
     private List<Movie> movieList;
     private RecyclerView recyclerView;
+    private int categoryId;
 
-    public ExtractDiscoverMoreMovies(Context context, List<Movie> movieList, RecyclerView recyclerView) {
+    public ExtractDiscoverMoreMovies(Context context, List<Movie> movieList, RecyclerView recyclerView, int categoryId) {
         this.context = context;
         this.movieList = movieList;
         this.recyclerView = recyclerView;
+        this.categoryId=categoryId;
     }
 
     @Override
@@ -37,8 +39,14 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
             HttpURLConnection urlConnection = null;
 
             try{
-                String top_rated_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=47a63a793ef28004cb08a49ec20932d0";
-                url = new URL(top_rated_movies);
+                String link=null;
+                if (categoryId==-1){
+                    link= "https://api.themoviedb.org/3/movie/top_rated?api_key=47a63a793ef28004cb08a49ec20932d0";
+                }else{
+                    link="https://api.themoviedb.org/3/discover/movie?api_key=47a63a793ef28004cb08a49ec20932d0&with_genres="+categoryId;
+                }
+
+                url = new URL(link);
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 InputStream is = urlConnection.getInputStream();

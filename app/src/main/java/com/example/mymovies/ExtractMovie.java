@@ -90,6 +90,7 @@ public class ExtractMovie extends AsyncTask<String, Void, String> {
             JSONArray genres = jsonObject.getJSONArray("genres");
             List<MovieCategory> categories = new ArrayList<>();
             List<MovieCategoriesCrossRef> movieCategoriesCrossRefsList = new ArrayList<>();
+            List<MovieCategory> categoriesDB=movieDB.getMovieCategoryDao().getAllCategories();
             for(int j=0;j<genres.length(); j++){
                 JSONObject genre = genres.getJSONObject(j);
 
@@ -97,7 +98,19 @@ public class ExtractMovie extends AsyncTask<String, Void, String> {
                 movieCategory.setCategoryId(genre.getInt("id"));
                 movieCategory.setCategoryName(genre.getString("name"));
 
-                categories.add(movieCategory);
+                if (categoriesDB.size()==0){
+                    categories.add(movieCategory);
+                }else{
+                boolean verify=true;
+                for (MovieCategory mc:categoriesDB){
+                    if (movieCategory.getCategoryId()==mc.getCategoryId()){
+                        verify=false;
+                    }
+                }
+                if (verify){
+                    categories.add(movieCategory);
+                }
+                }
 
                 MovieCategoriesCrossRef movieCategoriesCrossRef = new MovieCategoriesCrossRef();
                 movieCategoriesCrossRef.setMovieId(id);
@@ -107,10 +120,11 @@ public class ExtractMovie extends AsyncTask<String, Void, String> {
             }
 
             movieDB.getMovieDao().insert(movie);
+            movieDB.getMovieCategoryDao().insert(categories);
 
             movieDB.getMovieWithCategoriesDao().insert(movieCategoriesCrossRefsList);
 
-            movieDB.getMovieCategoryDao().insert(categories);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

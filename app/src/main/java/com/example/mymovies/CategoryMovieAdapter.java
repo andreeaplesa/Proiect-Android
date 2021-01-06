@@ -1,6 +1,7 @@
 package com.example.mymovies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,31 +35,17 @@ public class CategoryMovieAdapter extends RecyclerView.Adapter<CategoryMovieAdap
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         view = inflater.inflate(R.layout.discover_fragment_card_view, parent, false);
         return new MyViewHolder(view);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        long id = movieList.get(position).getMovieId();
-
-        final MovieDB movieDB = MovieDB.getInstanta(context);
-
-//        Log.d("MovieAdapter", String.valueOf(id));
-
-        Movie movie = movieDB.getMovieDao().getMovieById(id);
-//        Log.d("MovieAdapter", movie.toString());
-
-        if(movie != null){
-            holder.discoverImageButton.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_check_16_with_background));
-            holder.pressed = true;
-        } else {
-            holder.discoverImageButton.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_add_16_with_background));
-            holder.pressed = false;
-        }
-
         String posterImageString = "https://image.tmdb.org/t/p/w780";
         Glide.with(context)
                 .load(posterImageString + movieList.get(position).getPoster_path())
                 .into(holder.discoverImageView);
+
+
     }
 
     @Override
@@ -68,34 +55,21 @@ public class CategoryMovieAdapter extends RecyclerView.Adapter<CategoryMovieAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView discoverImageView;
-        private ImageButton discoverImageButton;
 
-        private boolean pressed;
-
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             discoverImageView = itemView.findViewById(R.id.discoverImageView);
-            discoverImageButton = itemView.findViewById(R.id.discoverImageButton);
-
-
-            discoverImageButton.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final int position = getAdapterPosition();
-                    final MovieDB movieDB = MovieDB.getInstanta(v.getContext());
-
-                    if (pressed) {
-                        v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_add_16_with_background));
-
-                        movieDB.getMovieDao().deleteMovie(movieList.get(position));
-                    } else {
-                        v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_check_16_with_background));
-
-                        movieDB.getMovieDao().insert(movieList.get(position));
-                    }
+                    Intent intent=new Intent(v.getContext(),MovieDetailsActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    v.getContext().startActivity(intent);
                 }
             });
+
         }
+
     }
 }

@@ -114,6 +114,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                     final int position = getAdapterPosition();
                     final MovieDB movieDB = MovieDB.getInstanta(v.getContext());
 
+
                     if(pressed){
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_add_16_with_background));
 
@@ -122,7 +123,9 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                     else {
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_check_16_with_background));
 
-                        movieDB.getMovieDao().insert(movieList.get(position));
+                        ExtractMovie extractMovie = new ExtractMovie(movieList.get(position).getMovieId(), movieDB);
+
+                        extractMovie.execute();
 
 //                        myRef.child("Users").addValueEventListener(new ValueEventListener() {
 //                            @Override

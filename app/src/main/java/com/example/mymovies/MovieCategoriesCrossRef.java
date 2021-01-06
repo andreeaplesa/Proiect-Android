@@ -2,9 +2,25 @@ package com.example.mymovies;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 
-@Entity(tableName = "movieCategoriesCR", primaryKeys = {"movieId", "categoryId"})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "movieCategoriesCR", primaryKeys = {"movieId", "categoryId"},
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Movie.class,
+                        parentColumns = "movieId",
+                        childColumns = "movieId",
+                        onDelete = CASCADE),
+                @ForeignKey(
+                        entity = MovieCategory.class,
+                        parentColumns = "categoryId",
+                        childColumns = "categoryId",
+                        onDelete = CASCADE)
+        })
 public class MovieCategoriesCrossRef {
     private long movieId;
     @ColumnInfo(index = true)
