@@ -24,5 +24,7 @@ public abstract class MovieDB extends RoomDatabase {
 
     public abstract MovieDao getMovieDao();
 
-    public abstract MovieWithCategoriesDao getMovieWithCategoryDao();
+    public abstract MovieWithCategoriesDao getMovieWithCategoriesDao();
+
+    public abstract MovieCategoryDao getMovieCategoryDao();
 }

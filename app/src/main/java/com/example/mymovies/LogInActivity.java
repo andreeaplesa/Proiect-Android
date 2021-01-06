@@ -20,9 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 public class LogInActivity extends AppCompatActivity {
     boolean foundEmail=false;
     boolean foundPassword=false;
+
     Button btnLogIn,btnSignUp;
     TextInputLayout textInputLayoutEmail,textInputLayoutPassword;
+
     private FirebaseDatabase database;
+
+    private String uid;
 
 
     @Override
@@ -42,6 +46,52 @@ public class LogInActivity extends AppCompatActivity {
                 if (validateEmail(myRef) & validatePassword(myRef)){
                     textInputLayoutEmail=findViewById(R.id.textInputLayoutEmail);
                     final String emailText =textInputLayoutEmail.getEditText().getText().toString().trim();
+
+                    database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("MyMovies");
+                    myRef.keepSynced(true);
+
+                    myRef.child("Users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                for (DataSnapshot dn : snapshot.getChildren()) {
+                                    User user = dn.getValue(User.class);
+                                    if (user.getEmail().equals(emailText)) {
+                                        uid = user.getUid();
+                                    }
+                                }
+                            }
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    final MovieDB movieDB = MovieDB.getInstanta(getApplicationContext());
+
+                    myRef.child("UsersWithMovies").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                for(DataSnapshot dn : snapshot.getChildren()){
+                                    if(dn.getKey().equals(uid)){
+                                        ExtractMovie extractMovie = new ExtractMovie((Long) dn.getValue(), movieDB);
+
+                                        extractMovie.execute();
+                                    }
+                                }
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                     SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
                     SharedPreferences.Editor myEditor = settingsFile.edit();
@@ -131,7 +181,6 @@ public class LogInActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

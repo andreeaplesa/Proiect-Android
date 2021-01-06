@@ -1,6 +1,7 @@
 package com.example.mymovies;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class DiscoverFragment extends Fragment {
 
         ExtractCategories extractCategories = new ExtractCategories(getActivity(), movieCategories, recyclerView);
         extractCategories.execute();
+
+        Log.d("DiscoverFragment", movieCategories.toString());
 
         return rootView;
     }

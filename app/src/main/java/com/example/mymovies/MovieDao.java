@@ -28,6 +28,9 @@ public interface MovieDao {
     @Query("SELECT * FROM MOVIES WHERE title= :title")
     Movie getMovieByTitle(String title);
 
+    @Query("SELECT * FROM MOVIES WHERE MOVIEID = :id")
+    Movie getMovieById(Long id);
+
     @Query("DELETE FROM MOVIES")
     void deleteAll();
 

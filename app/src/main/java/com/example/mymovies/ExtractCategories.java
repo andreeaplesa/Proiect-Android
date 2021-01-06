@@ -2,6 +2,7 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -86,6 +87,8 @@ public class ExtractCategories extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        Log.d("ExtractCategories", categoryList.toString());
 
         PutDataIntoRecyclerView(categoryList);
     }

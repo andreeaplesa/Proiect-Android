@@ -43,7 +43,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
 
         view = inflater.inflate(R.layout.discover_more_card_view, parent, false);
 
-        return new MyViewHolder(view, context, movieList);
+        return new MyViewHolder(view, movieList);
     }
 
     @Override
@@ -51,6 +51,23 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
         // Using Glide library to display the image
         // https://image.tmdb.org/t/p/w500
         holder.tvMovieTitle.setText(movieList.get(position).getTitle());
+
+        long id = movieList.get(position).getMovieId();
+
+        final MovieDB movieDB = MovieDB.getInstanta(context);
+
+//        Log.d("MovieAdapter", String.valueOf(id));
+
+        Movie movie = movieDB.getMovieDao().getMovieById(id);
+//        Log.d("MovieAdapter", movie.toString());
+
+        if(movie != null){
+            holder.checkImgButton.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_check_16_with_background));
+            holder.pressed = true;
+        } else {
+            holder.checkImgButton.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_add_16_with_background));
+            holder.pressed = false;
+        }
 
         String imageString = "https://image.tmdb.org/t/p/original";
         Glide.with(context)
@@ -69,21 +86,13 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
         private TextView tvMovieGenres;
         private ImageButton checkImgButton;
         private ImageView img;
-        private boolean pressed = false;
 
-        private Context context;
-        private String email;
-        private SharedPreferences settingsFile;
-        private FirebaseDatabase database;
-        private DatabaseReference myRef;
-        private String uid;
+        private boolean pressed;
 
 
-
-        public MyViewHolder(@NonNull final View itemView, Context context, final List<Movie> movieList) {
+        public MyViewHolder(@NonNull final View itemView, final List<Movie> movieList) {
             super(itemView);
 
-            this.context = context;
             tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
 
             img = itemView.findViewById(R.id.discoverMoreImageView);
@@ -99,56 +108,54 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                 }
             });
 
-            settingsFile = context.getSharedPreferences("prefs", 0);
-            email=settingsFile.getString("email",null);
-
-            database = FirebaseDatabase.getInstance();
-            myRef = database.getReference("MyMovies");
-            myRef.keepSynced(true);
-
-
             checkImgButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final int position = getAdapterPosition();
+                    final MovieDB movieDB = MovieDB.getInstanta(v.getContext());
 
                     if(pressed){
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_add_16_with_background));
+
+                        movieDB.getMovieDao().deleteMovie(movieList.get(position));
                     }
                     else {
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_check_16_with_background));
 
-                        myRef.child("Users").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()){
-                                    for (DataSnapshot dn : snapshot.getChildren()) {
-                                        User user = dn.getValue(User.class);
-                                        if (user.getEmail().equals(email)) {
-                                            uid = user.getUid();
-                                        }
-                                    }
-                                }
-                            }
+                        movieDB.getMovieDao().insert(movieList.get(position));
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                        myRef.child("UsersWithMovies").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                myRef.child("UsersWithMovies").child(uid)
-                                        .setValue(movieList.get(position).getMovieId());
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
+//                        myRef.child("Users").addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                if(snapshot.exists()){
+//                                    for (DataSnapshot dn : snapshot.getChildren()) {
+//                                        User user = dn.getValue(User.class);
+//                                        if (user.getEmail().equals(email)) {
+//                                            uid = user.getUid();
+//                                        }
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//
+//                        myRef.child("UsersWithMovies").addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                myRef.child("UsersWithMovies").child(uid)
+//                                        .setValue(movieList.get(position).getMovieId());
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
 
 
                     }

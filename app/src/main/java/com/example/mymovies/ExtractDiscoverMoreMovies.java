@@ -106,9 +106,9 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
 
         MovieDB movieDB = MovieDB.getInstanta(context);
 
-        movieDB.getMovieDao().deleteAll();
+//        movieDB.getMovieDao().deleteAll();
 
-        movieDB.getMovieDao().insert(movieList);
+//        movieDB.getMovieDao().insert(movieList);
 
         PutDataIntoRecyclerView(movieList);
     }

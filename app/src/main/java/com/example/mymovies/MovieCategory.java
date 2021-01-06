@@ -53,4 +53,13 @@ public class MovieCategory {
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
     }
+
+    @Override
+    public String toString() {
+        return "MovieCategory{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", movieList=" + movieList +
+                '}';
+    }
 }

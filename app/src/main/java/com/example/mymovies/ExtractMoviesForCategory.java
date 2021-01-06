@@ -109,7 +109,7 @@ public class ExtractMoviesForCategory extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-        Log.d("Movies For Category", movieList.toString());
+        Log.d("MoviesCategory", movieList.toString());
 
         PutDataIntoRecyclerView(movieList);
     }

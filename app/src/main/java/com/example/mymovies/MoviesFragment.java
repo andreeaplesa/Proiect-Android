@@ -31,8 +31,10 @@ public class MoviesFragment extends Fragment{
         movieList = new ArrayList<>();
         recyclerView = rootView.findViewById(R.id.moviesRecyclerView);
 
-        ExtractMovies extractMovies = new ExtractMovies(getActivity(), movieList, recyclerView, this.getClass().toString());
-        extractMovies.execute();
+//        ExtractMovies extractMovies = new ExtractMovies(getActivity(), movieList, recyclerView, this.getClass().toString());
+//        extractMovies.execute();
+
+
 
         Button discoverMoreButton = rootView.findViewById(R.id.btnDiscoverMore);
         discoverMoreButton.setOnClickListener(new View.OnClickListener() {
