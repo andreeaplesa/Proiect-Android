@@ -52,11 +52,15 @@ public class MoviesFragment extends Fragment{
 
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if ((resultCode == Activity.RESULT_OK)){
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//             ft.detach(this).attach(this).commit();}
-//    }
+    @Override
+    public void onResume() {
+        MovieDB movieDB=MovieDB.getInstanta(getContext());
+        movieList=movieDB.getMovieDao().getAll();
+        MovieAdapter adapter = new MovieAdapter(getContext(), movieList);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setAdapter(adapter);
+        super.onResume();
+
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.SearchView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,12 +24,14 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
     private List<Movie> movieList;
     private RecyclerView recyclerView;
     private int categoryId;
+    private SearchView sv;
 
-    public ExtractDiscoverMoreMovies(Context context, List<Movie> movieList, RecyclerView recyclerView, int categoryId) {
+    public ExtractDiscoverMoreMovies(Context context, List<Movie> movieList, RecyclerView recyclerView, int categoryId,SearchView sv) {
         this.context = context;
         this.movieList = movieList;
         this.recyclerView = recyclerView;
         this.categoryId=categoryId;
+        this.sv=sv;
     }
 
     @Override
@@ -122,10 +125,23 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
     }
 
     private void PutDataIntoRecyclerView(List<Movie> movieList){
-        DiscoverMoreMovieAdapter adapter = new DiscoverMoreMovieAdapter(context, movieList);
+        final DiscoverMoreMovieAdapter adapter = new DiscoverMoreMovieAdapter(context, movieList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         recyclerView.setAdapter(adapter);
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
 }

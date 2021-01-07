@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,16 +25,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreMovieAdapter.MyViewHolder> {
+public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreMovieAdapter.MyViewHolder> implements Filterable {
 
     private Context context;
     private List<Movie> movieList;
+    private List<Movie> movieListAll;
 
     public DiscoverMoreMovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
+        this.movieListAll=new ArrayList<Movie>(movieList);
     }
 
     @NonNull
@@ -79,6 +85,38 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
     public int getItemCount() {
         return movieList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter=new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Movie> filteredList=new ArrayList<>();
+            if (constraint.toString().isEmpty()){
+                filteredList.addAll(movieListAll);
+            }else{
+                for (Movie movie:movieListAll){
+                    if (movie.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())){
+                        filteredList.add(movie);
+                    }
+                }
+            }
+            FilterResults filterResults=new FilterResults();
+            filterResults.values=filteredList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            movieList.clear();
+            movieList.addAll((Collection<? extends Movie>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvMovieTitle;

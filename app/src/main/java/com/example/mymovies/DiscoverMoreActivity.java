@@ -3,6 +3,7 @@ package com.example.mymovies;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,9 @@ public class DiscoverMoreActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private int categoryId=-1;
     private String title="Top Rated Movies";
+
+    //new
+    SearchView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +38,19 @@ public class DiscoverMoreActivity extends AppCompatActivity {
             categoryId=bundle.getInt("categoryId");
             title=bundle.getString("categoryName");
         }
-        ExtractDiscoverMoreMovies extractMovies = new ExtractDiscoverMoreMovies(getApplicationContext(), movieList, recyclerView, categoryId);
+        sv=findViewById(R.id.sv);
+
+        ExtractDiscoverMoreMovies extractMovies = new ExtractDiscoverMoreMovies(getApplicationContext(), movieList, recyclerView, categoryId,sv);
         extractMovies.execute();
         setTitle(title);
+
+
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.stay,R.anim.slide_down);
-        //setResult(Activity.RESULT_OK);
+
     }
 }
