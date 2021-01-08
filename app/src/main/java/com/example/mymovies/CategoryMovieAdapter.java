@@ -1,6 +1,7 @@
 package com.example.mymovies;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +36,6 @@ public class CategoryMovieAdapter extends RecyclerView.Adapter<CategoryMovieAdap
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         view = inflater.inflate(R.layout.discover_fragment_card_view, parent, false);
         return new MyViewHolder(view);
-
     }
 
     @Override
@@ -63,8 +63,10 @@ public class CategoryMovieAdapter extends RecyclerView.Adapter<CategoryMovieAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position=getAdapterPosition();
                     Intent intent=new Intent(v.getContext(),MovieDetailsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("movieId",movieList.get(position).getMovieId());
                     v.getContext().startActivity(intent);
                 }
             });

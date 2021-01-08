@@ -17,9 +17,7 @@ public class DiscoverMoreActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private int categoryId=-1;
     private String title="Top Rated Movies";
-
-    //new
-    SearchView sv;
+    private SearchView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +37,6 @@ public class DiscoverMoreActivity extends AppCompatActivity {
             title=bundle.getString("categoryName");
         }
         sv=findViewById(R.id.sv);
-
         ExtractDiscoverMoreMovies extractMovies = new ExtractDiscoverMoreMovies(getApplicationContext(), movieList, recyclerView, categoryId,sv);
         extractMovies.execute();
         setTitle(title);

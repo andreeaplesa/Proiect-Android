@@ -20,7 +20,7 @@ public interface MovieDao {
     @Query("UPDATE MOVIES SET my_rating = :my_rating, " +
             "vote_count = vote_count+1, vote_average =  ((vote_count * vote_average) + :my_rating) / (vote_count + 1) " +
             "WHERE movieId = :id")
-    void update(int id, double my_rating);
+    void update(long id, double my_rating);
 
     @Query("SELECT * FROM MOVIES")
     List<Movie> getAll();

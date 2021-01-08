@@ -44,7 +44,7 @@ public class MoviesFragment extends Fragment{
 
         MovieDB movieDB=MovieDB.getInstanta(getContext());
         movieList=movieDB.getMovieDao().getAll();
-        MovieAdapter adapter = new MovieAdapter(getContext(), movieList);
+        MovieAdapter adapter = new MovieAdapter(getContext(), movieList,recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(adapter);
 
@@ -56,7 +56,7 @@ public class MoviesFragment extends Fragment{
     public void onResume() {
         MovieDB movieDB=MovieDB.getInstanta(getContext());
         movieList=movieDB.getMovieDao().getAll();
-        MovieAdapter adapter = new MovieAdapter(getContext(), movieList);
+        MovieAdapter adapter = new MovieAdapter(getContext(), movieList,recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(adapter);
         super.onResume();

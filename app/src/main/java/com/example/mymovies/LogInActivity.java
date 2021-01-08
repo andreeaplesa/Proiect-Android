@@ -78,7 +78,7 @@ public class LogInActivity extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 for(DataSnapshot dn : snapshot.getChildren()){
                                     if(dn.getKey().equals(uid)){
-                                        ExtractMovie extractMovie = new ExtractMovie((Long) dn.getValue(), movieDB);
+                                        ExtractMovie extractMovie = new ExtractMovie((Long) dn.getValue(), movieDB,true);
 
                                         extractMovie.execute();
                                     }

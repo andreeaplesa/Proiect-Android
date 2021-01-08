@@ -140,8 +140,10 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position=getAdapterPosition();
                     Intent intent = new Intent(v.getContext(), MovieDetailsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("movieId",movieList.get(position).getMovieId());
                     v.getContext().startActivity(intent);
                 }
             });
@@ -161,7 +163,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                     else {
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_check_16_with_background));
 
-                        ExtractMovie extractMovie = new ExtractMovie(movieList.get(position).getMovieId(), movieDB);
+                        ExtractMovie extractMovie = new ExtractMovie(movieList.get(position).getMovieId(), movieDB,true);
 
                         extractMovie.execute();
 
