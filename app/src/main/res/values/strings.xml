@@ -55,6 +55,7 @@ Last updated: 20.10.2019\n\n
 <b>Contact Us</b>\n\n
 
         If you have any questions about these Terms, please contact us.
+
 </string>
     <string-array name="countries_array">
         <item>Afghanistan</item>
@@ -299,6 +300,7 @@ Last updated: 20.10.2019\n\n
         <item>Zambia</item>
         <item>Zimbabwe</item>
     </string-array>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -388,6 +390,7 @@ Last updated: 20.10.2019\n\n
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
     <string name="first_nameProfile">First Name:</string>
     <string name="last_nameProfile">Last Name:</string>
     <string name="btnEditProfile">Edit</string>
@@ -403,7 +406,7 @@ Last updated: 20.10.2019\n\n
     <string name="discover_movies">Discover Movies</string>
     <string name="movie_info">Movie Info</string>
     <string name="rate_this_movie">Rate this movie</string>
-    <string name="add_to_watchlist">Add to Watchlist</string>
+    <string name="add_to_watchlist">+ Add to Watchlist</string>
     <string name="type_your_rating_here">Type your rating here</string>
 
 </resources>

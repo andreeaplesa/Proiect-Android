@@ -20,15 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SplashScreenActivity extends AppCompatActivity {
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
         SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
         final String email=settingsFile.getString("email",null);
+
         if (email!=null){
             Intent intent=new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
