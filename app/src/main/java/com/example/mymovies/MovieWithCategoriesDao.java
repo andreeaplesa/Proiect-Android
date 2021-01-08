@@ -10,10 +10,14 @@ import java.util.List;
 @Dao
 public interface MovieWithCategoriesDao {
 //    @Transaction
-//    @Query("SELECT * FROM MOVIES")
-//    List<MovieCategoriesCrossRef> getMovieWithCategories();
+//    @Query("SELECT * FROM movieCategory WHERE categoryId= :id")
+//    List<MovieWithCategories> getMovieWithCategories(long id);
 
     @Transaction
     @Insert
     void insert(List<MovieCategoriesCrossRef> movieWithCategoriesList);
+
+    @Query("SELECT * FROM movieCategoriesCR WHERE movieId = :id")
+    List<MovieCategoriesCrossRef> getMovieCategoryByMovieId(long id);
+
 }

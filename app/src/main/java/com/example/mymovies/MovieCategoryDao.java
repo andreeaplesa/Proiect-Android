@@ -25,6 +25,8 @@ public interface MovieCategoryDao {
     @Query("DELETE FROM MOVIECATEGORY")
     void deleteAllCategories();
 
+    @Query("SELECT * FROM movieCategory WHERE categoryId = :id")
+    MovieCategory getMovieCategoryById(int id);
     @Delete
     void deleteMovieCategory(MovieCategory movieCategory);
 }

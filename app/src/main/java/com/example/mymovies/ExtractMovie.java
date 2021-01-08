@@ -165,7 +165,7 @@ public class ExtractMovie extends AsyncTask<String, Void, String> {
                 TextView tvRuntime=activity.findViewById(R.id.tvRuntime);
                 tvRuntime.setText(movie.getRuntime()+"");
 
-                String allCategories=categories.get(0).getCategoryName();
+                String allCategories=categories.get(0).getCategoryName()+", ";
                 for (int i=1;i<categories.size()-1;i++){
                     allCategories+=categories.get(i).getCategoryName()+", ";
                 }

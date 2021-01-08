@@ -40,8 +40,14 @@ public class RatingDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String myRating=etRating.getText().toString();
-                        listener.applyTexts(myRating);
-                        dialog.dismiss();
+                        String rating=getArguments().getString("rating");
+                        if(Float.valueOf(rating)==0){
+                        listener.applyTexts(myRating,true);
+                        dialog.dismiss();}
+                        else{
+                            listener.applyTexts(myRating,false);
+                            dialog.dismiss();
+                        }
 
                     }
                 });
@@ -61,7 +67,7 @@ public class RatingDialog extends AppCompatDialogFragment {
         return fragment;
     }
     public interface DialogListener{
-        void applyTexts(String myRating);
+        void applyTexts(String myRating,boolean newVote);
     }
 
     @Override
