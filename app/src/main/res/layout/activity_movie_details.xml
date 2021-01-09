@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MovieDetailsActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieDetailsActivity">
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/btnAddWatchlist">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,161 +22,195 @@
             android:id="@+id/imgViewPoster"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"/>
+            tools:srcCompat="@tools:sample/avatars" />
 
-        <LinearLayout
-            android:id="@+id/importantDetails"
-            android:orientation="vertical"
+    <LinearLayout
+        android:id="@+id/importantDetails"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgViewPoster">
+
+        <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgViewPoster">
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="@font/open"
+            android:textSize="30sp"
+            android:textColor="@android:color/black"
+            android:text="Title"
+            />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="15dp"
-                android:text="Title"
-                />
-            <TextView
-                android:id="@+id/tvRuntime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="15dp"
-                android:text="Runtime"
-                />
-            <TextView
-                android:id="@+id/tvCategories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="15dp"
-                android:text="Genres"
-                />
-            <View
-                style="@style/Divider"
-                />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="5dp">
-
-                <ImageView
-                    android:id="@+id/imgViewCalendar"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_calendar_today_24"
-                    android:layout_marginEnd="5dp"
-                    android:layout_alignParentStart="true"
-                    />
-
-                <TextView
-                    android:id="@+id/tvReleaseDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ReleaseDate"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_toEndOf="@+id/imgViewCalendar"
-                    />
-
-            </RelativeLayout>
-
-            <View
-                style="@style/Divider"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutMovieInfo"
-            android:orientation="vertical"
+        <TextView
+            android:id="@+id/tvRuntime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/importantDetails">
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"
+            android:text="Runtime"
+            />
 
-            <TextView
-                android:id="@+id/movieInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/movie_info"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="5dp"/>
+        <TextView
+            android:id="@+id/tvCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"
+            android:text="Genres"
+            />
 
-            <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp">
+        <View
+            style="@style/Divider"
+            />
 
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:layout_alignParentStart="true"
-                    />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp">
 
-                <TextView
-                    android:id="@+id/tvVoteAverage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_toEndOf="@+id/ratingBar"
-                    android:text="Vote"
-                     />
-
-                <TextView
-                    android:id="@+id/tvVoteCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="27dp"
-                    android:layout_toEndOf="@+id/ratingBar"
-                    android:text="Vote count"
-                    />
-
-            </RelativeLayout>
-
-            <Button
-                android:id="@+id/btnVote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/rate_this_movie"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="5dp"
+            <ImageView
+                android:id="@+id/imgViewCalendar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_calendar_today_24"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentStart="true"
                 />
 
             <TextView
-                android:id="@+id/overview"
+                android:id="@+id/tvReleaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Overview"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="5dp"/>
+                android:text="ReleaseDate"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/quicksand"
+                android:textStyle="bold"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/imgViewCalendar"
+                />
 
-        </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            style="@style/Divider"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMovieInfo"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/importantDetails">
+
+        <TextView
+            android:id="@+id/movieInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_info"
+            android:textColor="@android:color/black"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/open"
+            android:textSize="18sp"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:layout_alignParentStart="true"
+
+                />
+
+            <TextView
+                android:id="@+id/tvVoteAverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/quicksand"
+                android:textStyle="bold"
+                android:layout_toEndOf="@+id/ratingBar"
+                android:text="Vote"
+                 />
+
+            <TextView
+                android:id="@+id/tvVoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="27dp"
+                android:fontFamily="@font/quicksand"
+                android:textStyle="bold"
+                android:layout_toEndOf="@+id/ratingBar"
+                android:text="Vote count"
+                />
+
+        </RelativeLayout>
 
         <Button
-            android:id="@+id/btnAddWatchlist"
+            android:id="@+id/btnVote"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutMovieInfo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/add_to_watchlist"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/rate_movie"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="8dp"
+            />
 
-</ScrollView>
+        <TextView
+            android:id="@+id/overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overview"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"/>
+
+        <Space
+            android:layout_height="15dp"
+            android:layout_width="match_parent"
+            />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/btnAddWatchlist"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/add_to_watchlist"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

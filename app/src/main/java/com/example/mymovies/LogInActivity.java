@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,13 +24,12 @@ public class LogInActivity extends AppCompatActivity {
     boolean foundEmail=false;
     boolean foundPassword=false;
 
-    Button btnLogIn,btnSignUp;
-    TextInputLayout textInputLayoutEmail,textInputLayoutPassword;
+    private Button btnLogIn,btnSignUp;
+    private TextInputLayout textInputLayoutEmail,textInputLayoutPassword;
 
     private FirebaseDatabase database;
 
     private String uid;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class LogInActivity extends AppCompatActivity {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (validateEmail(myRef) & validatePassword(myRef)){
                     textInputLayoutEmail=findViewById(R.id.textInputLayoutEmail);
                     final String emailText =textInputLayoutEmail.getEditText().getText().toString().trim();
@@ -170,6 +167,8 @@ public class LogInActivity extends AppCompatActivity {
     private boolean validatePassword(DatabaseReference myRef){
         textInputLayoutPassword=findViewById(R.id.textInputLayoutPassword);
         final String password = textInputLayoutPassword.getEditText().getText().toString().trim();
+        final String email=textInputLayoutEmail.getEditText().getText().toString().trim();
+
         if (password.isEmpty()){
             textInputLayoutPassword.setError("Field can't be empty!");
             return false;}
@@ -180,7 +179,7 @@ public class LogInActivity extends AppCompatActivity {
                     if (snapshot.exists()) {
                         for (DataSnapshot dn : snapshot.getChildren()) {
                             User user = dn.getValue(User.class);
-                            if (user.getPassword().equals(password)) {
+                            if (user.getPassword().equals(password) && user.getEmail().equals(email)) {
                                 foundPassword = true;
                             } else {
                                 foundPassword = false;

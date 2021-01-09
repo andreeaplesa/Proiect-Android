@@ -90,9 +90,6 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
                 movie.setTitle(jsonMovie.getString("title"));
                 movie.setOverview(jsonMovie.getString("overview"));
 
-                // !!! Pentru runtime ar trebui sa cautam filmul dupa id si sa gasim runtime !!!
-                //movie.setRuntime(jsonMovie.getInt("runtime"));
-
                 movie.setRelease_date(jsonMovie.getString("release_date"));
 
                 JSONArray genres = jsonMovie.getJSONArray("genre_ids");
@@ -114,12 +111,6 @@ public class ExtractDiscoverMoreMovies extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        MovieDB movieDB = MovieDB.getInstanta(context);
-
-//        movieDB.getMovieDao().deleteAll();
-
-//        movieDB.getMovieDao().insert(movieList);
 
         PutDataIntoRecyclerView(movieList);
     }

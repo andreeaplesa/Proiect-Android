@@ -19,10 +19,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-<!--        <androidx.core.widget.ContentLoadingProgressBar-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:visibility="visible"/>-->
 
         <ImageView
             android:id="@+id/ivProfile"
@@ -73,8 +69,7 @@
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_gravity="center_horizontal"
-            android:text="@string/unknown"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/quicksand"
             />
@@ -84,9 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="@string/unknown"
             android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
             android:fontFamily="@font/quicksand"/>
 
         <Button
@@ -97,23 +90,49 @@
             android:layout_marginTop="20dp"
             android:text="@string/btnEditProfile"
             android:fontFamily="@font/quicksand"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"/>
+
+        <View style="@style/Divider"/>
+
         <TextView
             android:id="@+id/tvApplicationRating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
             />
+
         <RatingBar
             android:id="@+id/rateApplication"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"/>
 
-        </RatingBar>
         <TextView
             android:id="@+id/tvFirstAuthentication"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+           />
+
+        <View style="@style/Divider"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log_out"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/quicksand"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

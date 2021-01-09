@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -18,11 +16,10 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class RatingDialog extends AppCompatDialogFragment {
     private EditText etRating;
     private DialogListener listener;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-
-
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         LayoutInflater inflater=getActivity().getLayoutInflater();
 
@@ -48,15 +45,14 @@ public class RatingDialog extends AppCompatDialogFragment {
                             listener.applyTexts(myRating,false);
                             dialog.dismiss();
                         }
-
                     }
                 });
         etRating=view.findViewById(R.id.etRating);
         etRating.setText(getArguments().getString("rating"));
 
         return builder.create();
-
     }
+
     public static RatingDialog newInstance(String msg) {
         RatingDialog fragment = new RatingDialog();
 

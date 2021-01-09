@@ -24,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
@@ -33,13 +36,14 @@ public class ProfileFragment extends Fragment {
     ImageView ivProfile;
     Button btnEditProfile;
     User user;
-
+    String email;
     private FirebaseDatabase database;
+    private String uid;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
+                             @Nullable final ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
 
@@ -84,8 +88,8 @@ public class ProfileFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
 
-        SharedPreferences mySettings = this.getActivity().getSharedPreferences("prefs", 0);
-        final String email = mySettings.getString("email", null);
+        final SharedPreferences mySettings = this.getActivity().getSharedPreferences("prefs", 0);
+        email = mySettings.getString("email", null);
 
         final DatabaseReference myRef = database.getReference("MyMovies");
         myRef.keepSynced(true);
@@ -101,6 +105,7 @@ public class ProfileFragment extends Fragment {
                             tvLastname.setText(user.getLastname());
                             tvEmail.setText(user.getEmail());
                             tvOrigin.setText(user.getOrigin());
+                            ivProfile.setImageResource(0);
                             if (user.getGender().equals("Male")) {
                                 ivProfile.setImageResource(R.drawable.boy);
                             } else {
@@ -125,9 +130,69 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        return view;
 
+        Button btnLogOut=view.findViewById(R.id.btnLogOut);
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor myEditor=mySettings.edit();
+                myEditor.putString("authentication", null);
+                myEditor.putString("email", null);
+                myEditor.putString("rating",null);
+                myEditor.apply();
+
+                MovieDB movieDB=MovieDB.getInstanta(getContext());
+                movieDB.getMovieDao().deleteAll();
+                movieDB.getMovieCategoryDao().deleteAllCategories();
+                Intent intent=new Intent(getContext(),LogInActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+        return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        final DatabaseReference myRef = database.getReference("MyMovies");
+        myRef.keepSynced(true);
 
+        myRef.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot dn : snapshot.getChildren()){
+                        final User user = dn.getValue(User.class);
+                        if(user.getEmail().equals(email)){
+                            tvFirstname.setText(user.getFirstname());
+                            tvLastname.setText(user.getLastname());
+                            tvEmail.setText(user.getEmail());
+                            tvOrigin.setText(user.getOrigin());
+                            if (user.getGender().equals("Male")) {
+
+                                ivProfile.setImageResource(R.drawable.boy);
+                            } else {
+                                ivProfile.setImageResource(R.drawable.girl);
+                            }
+                            btnEditProfile.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getActivity().getApplicationContext(), EditProfileActivity.class);
+                                    intent.putExtra("user",user);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 }

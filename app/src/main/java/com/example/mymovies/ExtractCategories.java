@@ -2,9 +2,7 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ExtractCategories extends AsyncTask<String, Void, String> {
@@ -88,13 +84,11 @@ public class ExtractCategories extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-        Log.d("ExtractCategories", categoryList.toString());
-
         PutDataIntoRecyclerView(categoryList);
     }
 
     private void PutDataIntoRecyclerView(List<MovieCategory> categoryList){
-        CategoryAdapter categoryAdapter = new CategoryAdapter(context, categoryList);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         recyclerView.setAdapter(categoryAdapter);

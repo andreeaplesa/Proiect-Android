@@ -2,9 +2,7 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,9 +81,6 @@ public class ExtractMoviesForCategory extends AsyncTask<String, Void, String> {
                 movie.setTitle(jsonMovie.getString("title"));
                 movie.setOverview(jsonMovie.getString("overview"));
 
-                // !!! Pentru runtime ar trebui sa cautam filmul dupa id si sa gasim runtime !!!
-                //movie.setRuntime(jsonMovie.getInt("runtime"));
-
                 movie.setRelease_date(jsonMovie.getString("release_date"));
 
                 JSONArray genres = jsonMovie.getJSONArray("genre_ids");
@@ -108,8 +103,6 @@ public class ExtractMoviesForCategory extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Log.d("MoviesCategory", movieList.toString());
 
         PutDataIntoRecyclerView(movieList);
     }

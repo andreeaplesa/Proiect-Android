@@ -11,22 +11,17 @@ import java.util.List;
 public interface MovieCategoryDao {
 
     @Insert
-    void insert(MovieCategory movieCategory);
-
-    @Insert
     void insert(List<MovieCategory> movieCategoryList);
 
     @Query("SELECT * FROM MOVIECATEGORY")
     List<MovieCategory> getAllCategories();
-
-    @Query("SELECT * FROM MOVIECATEGORY WHERE categoryName= :categoryName")
-    MovieCategory getMovieCategoryByName(String categoryName);
 
     @Query("DELETE FROM MOVIECATEGORY")
     void deleteAllCategories();
 
     @Query("SELECT * FROM movieCategory WHERE categoryId = :id")
     MovieCategory getMovieCategoryById(int id);
+
     @Delete
     void deleteMovieCategory(MovieCategory movieCategory);
 }

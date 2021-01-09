@@ -49,13 +49,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
             textInputLayoutLastnameEdit = findViewById(R.id.textInputLayoutLastnameEdit);
             textInputLayoutLastnameEdit.getEditText().setText(user.getLastname());
-
             if (user.getGender().equals("Male")) {
                 genderEdit = findViewById(R.id.radioBtnMaleEdit);
                 genderEdit.setChecked(true);
             } else {
                 genderEdit = findViewById(R.id.radioBtnFemaleEdit);
                 genderEdit.setChecked(true);
+
             }
 
             originEdit = findViewById(R.id.spinnerOriginEdit);
@@ -92,14 +92,16 @@ public class EditProfileActivity extends AppCompatActivity {
                                 for (DataSnapshot dn : snapshot.getChildren()) {
                                     final User user = dn.getValue(User.class);
                                     if (user.getEmail().equals(email)) {
-                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid());
+                                        myRef.child("Users").child(user.getUid());
                                         Map<String, Object> updates = new HashMap<String, Object>();
-                                        updates.put("password", textInputLayoutPasswordEdit.getEditText().getText().toString());
+                                        updates.put("email",user.getEmail());
                                         updates.put("firstname", textInputLayoutFirstnameEdit.getEditText().getText().toString());
-                                        updates.put("lastname", textInputLayoutLastnameEdit.getEditText().getText().toString());
                                         updates.put("gender", radioButtonSelected.getText().toString());
+                                        updates.put("lastname", textInputLayoutLastnameEdit.getEditText().getText().toString());
                                         updates.put("origin", originEdit.getSelectedItem().toString());
-                                        ref.updateChildren(updates);
+                                        updates.put("password", textInputLayoutPasswordEdit.getEditText().getText().toString());
+                                        updates.put("uid",user.getUid());
+                                        myRef.child("Users").child(user.getUid()).setValue(updates);
                                     }
                                 }
 

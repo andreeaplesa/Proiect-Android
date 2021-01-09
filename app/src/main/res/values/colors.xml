@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Color primary 6200EE-->
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#6e45e2</color>
     <color name="colorPressedHighlight">#AAFFFFFF</color>
-    <color name="backgroundColor">#242424</color>
-    <color name="divider">#A0A0A0</color>
+    <color name="divider">#bbb4bf</color>
 </resources>

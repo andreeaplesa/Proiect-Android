@@ -70,8 +70,6 @@ public class CategoryMovieAdapter extends RecyclerView.Adapter<CategoryMovieAdap
                     v.getContext().startActivity(intent);
                 }
             });
-
         }
-
     }
 }

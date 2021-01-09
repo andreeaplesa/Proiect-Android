@@ -13,7 +13,6 @@
         <item name="android:layout_margin">30dp</item>
         <item name="android:background">@drawable/btn_gradient</item>
         <item name="android:textColor">#ffffff</item>
-
     </style>
 
     <style name="layoutStyle">
@@ -44,21 +43,16 @@
 
     <!-- Splash screen -->
     <style name="AppTheme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="android:windowBackground">@drawable/btn_gradient</item>
     </style>
 
     <!-- Discover more -->
     <style name="AppTheme.DiscoverMore" parent="Theme.AppCompat.Light">
-<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
-<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-<!--        <item name="colorAccent">@color/colorAccent</item>-->
     </style>
 
+    <!-- Movie details -->
     <style name="AppTheme.MovieDetails" parent="Theme.AppCompat.Light.NoActionBar">
-<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
         <item name="android:windowTranslucentStatus">true</item>
-<!--        <item name="android:windowTranslucentNavigation">true</item>-->
     </style>
 
 </resources>

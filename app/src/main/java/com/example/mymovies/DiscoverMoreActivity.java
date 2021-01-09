@@ -1,6 +1,5 @@
 package com.example.mymovies;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.SearchView;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverMoreActivity extends AppCompatActivity {
-
     private List<Movie> movieList;
     private RecyclerView recyclerView;
     private int categoryId=-1;
@@ -25,8 +23,6 @@ public class DiscoverMoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_discover_more);
         overridePendingTransition(R.anim.slide_up,R.anim.stay);
 
-
-
         movieList = new ArrayList<>();
         recyclerView = findViewById(R.id.discoverMoreRecyclerView);
         Intent intent = getIntent();
@@ -36,18 +32,19 @@ public class DiscoverMoreActivity extends AppCompatActivity {
             categoryId=bundle.getInt("categoryId");
             title=bundle.getString("categoryName");
         }
+
         sv=findViewById(R.id.sv);
+        sv.setQueryHint("Search your movie");
+
         ExtractDiscoverMoreMovies extractMovies = new ExtractDiscoverMoreMovies(getApplicationContext(), movieList, recyclerView, categoryId,sv);
         extractMovies.execute();
+
         setTitle(title);
-
-
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.stay,R.anim.slide_down);
-
+        overridePendingTransition(R.anim.stay, R.anim.slide_down);
     }
 }

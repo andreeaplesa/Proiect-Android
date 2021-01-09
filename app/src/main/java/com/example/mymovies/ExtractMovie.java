@@ -103,7 +103,6 @@ public class ExtractMovie extends AsyncTask<String, Void, String> {
             movie.setBackdrop_path(jsonObject.getString("backdrop_path"));
             movie.setPoster_path(jsonObject.getString("poster_path"));
 
-            movie.setRevenue(jsonObject.getInt("revenue"));
             movie.setMy_rating(0);
 
             JSONArray genres = jsonObject.getJSONArray("genres");
@@ -163,7 +162,7 @@ public class ExtractMovie extends AsyncTask<String, Void, String> {
                 tvTitle.setText(movie.getTitle());
 
                 TextView tvRuntime=activity.findViewById(R.id.tvRuntime);
-                tvRuntime.setText(movie.getRuntime()+"");
+                tvRuntime.setText(String.valueOf(movie.getRuntime()/60) + " h " + String.valueOf(movie.getRuntime()%60) + " min");
 
                 String allCategories=categories.get(0).getCategoryName()+", ";
                 for (int i=1;i<categories.size()-1;i++){

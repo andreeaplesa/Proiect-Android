@@ -2,11 +2,7 @@ package com.example.mymovies;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +16,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -40,12 +35,9 @@ public class SignUpActivity extends AppCompatActivity {
     boolean foundEmail=false;
     private Button btnSignUp;
     private CheckBox chkboxTermsConditions;
-    TextInputLayout  textInputLayoutFirstname, textInputLayoutLastname,textInputLayoutEmailSignUp,textInputLayoutPasswordSignUp,textInputLayoutConfirmPassSignUp;
+    private TextInputLayout  textInputLayoutFirstname, textInputLayoutLastname,textInputLayoutEmailSignUp,textInputLayoutPasswordSignUp,textInputLayoutConfirmPassSignUp;
 
     private FirebaseDatabase database;
-
-    public static final String ADD_USER = "addUser";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +130,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void writeUserInFirebase(final User user, final DatabaseReference myRef){
-
-
         myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -205,13 +195,9 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                 }
-
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
             if (foundEmail) {
@@ -260,15 +246,12 @@ public class SignUpActivity extends AppCompatActivity {
         chkboxTermsConditions = findViewById(R.id.chkboxTermsConditions);
         final TextView termsConditions=findViewById(R.id.tvTermsConditions);
         if (!chkboxTermsConditions.isChecked()) {
-
             termsConditions.setError("You must accept our Terms and Conditions!");
             return false;
         } else {
-
             termsConditions.setError(null);
             return true;
         }
-
 
     }
 

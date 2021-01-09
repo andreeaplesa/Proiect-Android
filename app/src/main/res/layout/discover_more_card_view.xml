@@ -40,40 +40,16 @@
             android:id="@+id/tvDiscoverMore_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/discoverMoreLinearLayout"
             android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
             android:fontFamily="@font/open"
             android:textSize="26sp"
             android:textColor="@android:color/black"
             android:background="@drawable/background_title"
             android:text="@string/movie_title"
-            android:layout_marginStart="16dp"/>
-
-        <LinearLayout
-            android:id="@+id/discoverMoreLinearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"/>
 
-            <TextView
-                android:id="@+id/tvDiscoverMore_MovieRuntime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/movie_runtime" />
-
-            <TextView
-                android:id="@+id/tvDiscoverMore_MovieGenres"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/movie_genres"
-                android:layout_marginStart="4dp"
-                />
-
-        </LinearLayout>
 
     </RelativeLayout>
 

@@ -2,28 +2,22 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
-
-    private Context context;
     private List<MovieCategory> categoryList;
 
-    public CategoryAdapter(Context context, List<MovieCategory> categoryList) {
-        this.context = context;
+    public CategoryAdapter(List<MovieCategory> categoryList) {
         this.categoryList = categoryList;
     }
 
@@ -69,13 +63,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
                     int position=getAdapterPosition();
                     Intent intent=new Intent(v.getContext(),DiscoverMoreActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("categoryId",categoryList.get(position).getCategoryId());
-                    intent.putExtra("categoryName",categoryList.get(position).getCategoryName());
+                    intent.putExtra("categoryId", categoryList.get(position).getCategoryId());
+                    intent.putExtra("categoryName", categoryList.get(position).getCategoryName());
                     v.getContext().startActivity(intent);
                 }
             });
-
-
         }
     }
 }

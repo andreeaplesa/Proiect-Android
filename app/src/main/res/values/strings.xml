@@ -405,8 +405,11 @@ Last updated: 20.10.2019\n\n
     <string name="movie_genres">Movie_Genres</string>
     <string name="discover_movies">Discover Movies</string>
     <string name="movie_info">Movie Info</string>
-    <string name="rate_this_movie">Rate this movie</string>
+    <string name="rate_this_movie">Rate this movie from 1 to 5</string>
     <string name="add_to_watchlist">+ Add to Watchlist</string>
     <string name="type_your_rating_here">Type your rating here</string>
+    <string name="log_out">Log out</string>
+    <string name="my_movies">My Movies</string>
+    <string name="rate_movie">Rate this movie</string>
 
 </resources>

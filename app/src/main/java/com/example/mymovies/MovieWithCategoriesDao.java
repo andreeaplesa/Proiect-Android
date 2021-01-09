@@ -9,9 +9,6 @@ import java.util.List;
 
 @Dao
 public interface MovieWithCategoriesDao {
-//    @Transaction
-//    @Query("SELECT * FROM movieCategory WHERE categoryId= :id")
-//    List<MovieWithCategories> getMovieWithCategories(long id);
 
     @Transaction
     @Insert

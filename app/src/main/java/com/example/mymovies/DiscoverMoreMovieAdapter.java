@@ -2,8 +2,6 @@ package com.example.mymovies;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +17,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreMovieAdapter.MyViewHolder> implements Filterable {
-
     private Context context;
     private List<Movie> movieList;
     private List<Movie> movieListAll;
@@ -38,7 +30,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
     public DiscoverMoreMovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
-        this.movieListAll=new ArrayList<Movie>(movieList);
+        this.movieListAll = new ArrayList<>(movieList);
     }
 
     @NonNull
@@ -54,24 +46,13 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        // Using Glide library to display the image
-        // https://image.tmdb.org/t/p/w500
         holder.tvMovieTitle.setText(movieList.get(position).getTitle());
-
-        //greu de luat
-//        for (MovieCategory mc:movieList.get(position).getGenres()){
-//
-//        }
-//        holder.tvMovieGenres.setText(movieList.get(position).getGenres());
 
         long id = movieList.get(position).getMovieId();
 
         final MovieDB movieDB = MovieDB.getInstanta(context);
 
-//        Log.d("MovieAdapter", String.valueOf(id));
-
         Movie movie = movieDB.getMovieDao().getMovieById(id);
-//        Log.d("MovieAdapter", movie.toString());
 
         if(movie != null){
             holder.checkImgButton.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_check_16_with_background));
@@ -126,8 +107,6 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvMovieTitle;
-        private TextView tvMovieRuntime;
-        private TextView tvMovieGenres;
         private ImageButton checkImgButton;
         private ImageView img;
 
@@ -138,7 +117,6 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
             super(itemView);
 
             tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
-            tvMovieGenres=itemView.findViewById(R.id.tvDiscoverMore_MovieGenres);
 
             img = itemView.findViewById(R.id.discoverMoreImageView);
             CardView cardView = itemView.findViewById(R.id.discoverMoreCardView);
@@ -161,7 +139,6 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                     final int position = getAdapterPosition();
                     final MovieDB movieDB = MovieDB.getInstanta(v.getContext());
 
-
                     if(pressed){
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_add_16_with_background));
 
@@ -171,43 +148,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
                         v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_check_16_with_background));
 
                         ExtractMovie extractMovie = new ExtractMovie(movieList.get(position).getMovieId(), movieDB,true);
-
                         extractMovie.execute();
-
-//                        myRef.child("Users").addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                if(snapshot.exists()){
-//                                    for (DataSnapshot dn : snapshot.getChildren()) {
-//                                        User user = dn.getValue(User.class);
-//                                        if (user.getEmail().equals(email)) {
-//                                            uid = user.getUid();
-//                                        }
-//                                    }
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//
-//                            }
-//                        });
-//
-//                        myRef.child("UsersWithMovies").addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                myRef.child("UsersWithMovies").child(uid)
-//                                        .setValue(movieList.get(position).getMovieId());
-//
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//
-//                            }
-//                        });
-
-
                     }
 
                     pressed=!pressed;
