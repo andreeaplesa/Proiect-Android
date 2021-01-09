@@ -22,6 +22,7 @@
         android:inputType="number"
         android:digits="12345"
         android:layout_marginTop="30dp"
+        android:backgroundTint="@color/colorAccent"
         />
 
 </RelativeLayout>
