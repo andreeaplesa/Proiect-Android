@@ -17,6 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class LogInActivity extends AppCompatActivity {
     boolean foundEmail=false;
     boolean foundPassword=false;
@@ -95,9 +99,11 @@ public class LogInActivity extends AppCompatActivity {
 
                     SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
                     SharedPreferences.Editor myEditor = settingsFile.edit();
-
+                    String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                    myEditor.putString("authentication", currentDate);
                     myEditor.putString("email", emailText);
                     myEditor.apply();
+
                     Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
                     finish();

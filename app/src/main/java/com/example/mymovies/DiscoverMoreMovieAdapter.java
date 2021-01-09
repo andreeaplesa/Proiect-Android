@@ -58,6 +58,12 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
         // https://image.tmdb.org/t/p/w500
         holder.tvMovieTitle.setText(movieList.get(position).getTitle());
 
+        //greu de luat
+//        for (MovieCategory mc:movieList.get(position).getGenres()){
+//
+//        }
+//        holder.tvMovieGenres.setText(movieList.get(position).getGenres());
+
         long id = movieList.get(position).getMovieId();
 
         final MovieDB movieDB = MovieDB.getInstanta(context);
@@ -132,6 +138,7 @@ public class DiscoverMoreMovieAdapter extends RecyclerView.Adapter<DiscoverMoreM
             super(itemView);
 
             tvMovieTitle = itemView.findViewById(R.id.tvDiscoverMore_Title);
+            tvMovieGenres=itemView.findViewById(R.id.tvDiscoverMore_MovieGenres);
 
             img = itemView.findViewById(R.id.discoverMoreImageView);
             CardView cardView = itemView.findViewById(R.id.discoverMoreCardView);

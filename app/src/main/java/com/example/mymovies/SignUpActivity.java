@@ -29,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -94,7 +96,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                     SharedPreferences settingsFile = getSharedPreferences("prefs", 0);
                     SharedPreferences.Editor myEditor = settingsFile.edit();
-
+                    String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                    myEditor.putString("authentication", currentDate);
                     myEditor.putString("email", email);
                     myEditor.apply();
 

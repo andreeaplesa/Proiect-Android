@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
-    public static final int REQUEST_CODE = 200;
-    public static final String EDIT_USER = "editUser";
 
-    private static final String USER_KEY="user_key";
+
     TextView tvFirstname, tvLastname,tvEmail,tvOrigin;
     ImageView ivProfile;
     Button btnEditProfile;
@@ -44,7 +43,7 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
 
-      View view= inflater.inflate(R.layout.fragment_profile, container, false);
+        View view= inflater.inflate(R.layout.fragment_profile, container, false);
 
         tvFirstname = view.findViewById(R.id.tvFirstname);
         tvLastname = view.findViewById(R.id.tvLastname);
@@ -53,37 +52,35 @@ public class ProfileFragment extends Fragment {
         ivProfile = view.findViewById(R.id.ivProfile);
 
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        final RatingBar rateApplication=view.findViewById(R.id.rateApplication);
+        final TextView tvApplicationRating=view.findViewById(R.id.tvApplicationRating);
+        rateApplication.setNumStars(5);
 
-//        if(getArguments()!=null) {
-//            tvFirstname = view.findViewById(R.id.tvFirstname);
-//            tvLastname = view.findViewById(R.id.tvLastname);
-//            tvEmail = view.findViewById(R.id.tvEmail);
-//            tvOrigin = view.findViewById(R.id.tvOriginProfile);
-//            ivProfile = view.findViewById(R.id.ivProfile);
-//
-//            //populare fragment
-//            user = (User)getArguments().getSerializable(USER_KEY);
-//
-//            tvFirstname.setText(user.getFirstname());
-//            tvLastname.setText(user.getLastname());
-//            tvEmail.setText(user.getEmail());
-//            tvOrigin.setText(user.getOrigin());
-//            if (user.getGender().equals("Male")) {
-//                ivProfile.setImageResource(R.drawable.boy);
-//            } else {
-//                ivProfile.setImageResource(R.drawable.girl);
-//            }
-//            btnEditProfile = view.findViewById(R.id.btnEditProfile);
-//            btnEditProfile.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getActivity().getApplicationContext(), EditProfileActivity.class);
-//                            intent.putExtra(EDIT_USER,user);
-//                            startActivityForResult(intent, REQUEST_CODE);
-//                        }
-//                    });
-//
-//      }
+        final SharedPreferences settingsFile = this.getActivity().getSharedPreferences("prefs", 0);
+        String rating=settingsFile.getString("rating",null);
+        if (rating==null){
+            rateApplication.setRating(0);
+            tvApplicationRating.setText("Rate this app");
+
+        }else{
+            tvApplicationRating.setText("Your rating on this app: "+rating+"/5");
+            rateApplication.setRating(Float.parseFloat(rating));
+        }
+
+        rateApplication.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                SharedPreferences.Editor myEditor = settingsFile.edit();
+                myEditor.putString("rating", String.valueOf(rateApplication.getRating()));
+                myEditor.apply();
+                rateApplication.setRating(rating);
+                tvApplicationRating.setText("Your rating on this app: "+rating+"/5");
+
+            }
+        });
+        String firstAuthentication=settingsFile.getString("authentication","null");
+        TextView tvfirstAuthentication=view.findViewById(R.id.tvFirstAuthentication);
+        tvfirstAuthentication.setText("First authentication on: "+firstAuthentication);
 
         database = FirebaseDatabase.getInstance();
 
@@ -113,8 +110,8 @@ public class ProfileFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(getActivity().getApplicationContext(), EditProfileActivity.class);
-                                    intent.putExtra(EDIT_USER,user);
-                                    startActivityForResult(intent, REQUEST_CODE);
+                                    intent.putExtra("user",user);
+                                    startActivity(intent);
                                 }
                             });
                         }
@@ -132,26 +129,5 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==REQUEST_CODE && resultCode==RESULT_OK && data!=null)
-        {
-            user = (User)data.getSerializableExtra(EditProfileActivity.EDIT_USER_ACT);
-            if(user!=null)
-            {tvFirstname.setText(user.getFirstname());
-            tvLastname.setText(user.getLastname());
-            tvEmail.setText(user.getEmail());
-            tvOrigin.setText(user.getOrigin());
-                if (user.getGender().equals("Male")) {
-                    ivProfile.setImageResource(R.drawable.boy);
-                } else {
-                    ivProfile.setImageResource(R.drawable.girl);
-                }
-
-            }
-        }
-
-    }
 }
